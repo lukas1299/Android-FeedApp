@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FeedApp</string>
+    <string name="menu">Menu</string>
+    <string name="recipes">Recipes</string>
+    <string name="shopping">Shopping</string>
+    <string name="more">More</string>
+    <string name="Option1">Option1</string>
+    <string name="Option2">Option2</string>
+</resources>
