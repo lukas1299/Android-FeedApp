@@ -9,27 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FeedApp">
-<!--        <activity-->
-<!--            android:name=".MenuActivity"-->
-<!--            android:exported="true"/>-->
-<!--            android:label="@string/title_activity_menu"-->
-<!--            android:theme="@style/Theme.Project_PUM.NoActionBar" />-->
+        <activity
+            android:name=".AccountActivity"
+            android:exported="true"
+
+             />
+
         <activity
             android:name=".RecipesActivity"
             android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".ShoppingActivity"-->
-<!--            android:exported="true" />-->
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
 
 </manifest>
