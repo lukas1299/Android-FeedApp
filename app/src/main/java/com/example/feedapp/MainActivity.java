@@ -2,15 +2,11 @@ package com.example.feedapp;
 
 import android.app.AppComponentFactory;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.feedapp.R;
@@ -23,10 +19,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getSupportActionBar().hide();
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
-        actionBar.setTitle(Html.fromHtml("<font color='#00000'>Menu </font>"));
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.bottomNavBar);
 
@@ -39,10 +32,6 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.ic_kitchen:
                         startActivity(new Intent(getApplicationContext(),RecipesActivity.class));
-                        overridePendingTransition(0,0);
-                        break;
-                    case R.id.ic_account:
-                        startActivity(new Intent(getApplicationContext(),AccountActivity.class));
                         overridePendingTransition(0,0);
                 }
                 return false;
