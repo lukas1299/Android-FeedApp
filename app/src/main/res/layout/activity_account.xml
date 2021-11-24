@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccountActivity">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavBar"
+        android:layout_width="409dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/nav_menu" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="410dp"
+        android:layout_height="553dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <RelativeLayout
+            android:layout_width="395dp"
+            android:layout_height="1000dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="150dp"
+
+            android:background="@drawable/recipes_element">
+
+
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="257dp"
+
+
+                android:layout_alignParentStart="true"
+
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="-1dp"
+                android:layout_marginTop="-2dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="87dp"
+
+                android:gravity="center"
+                app:srcCompat="@drawable/fruit" />
+
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="220dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/account_element">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="145dp"
+                    android:layout_height="145dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="-6dp"
+
+                    android:layout_marginEnd="125dp"
+                    android:layout_marginBottom="61dp"
+                    android:src="@drawable/monalisat"
+                    app:civ_border_color="#EAE8E8"
+                    app:civ_border_width="2dp" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="69dp"
+                    android:layout_height="21dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="148dp"
+                    android:layout_marginTop="150dp"
+                    android:layout_marginEnd="148dp"
+                    android:layout_marginBottom="29dp"
+                    android:text="Mona Lisa"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="30dp"
+                    android:layout_height="21dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="197dp"
+                    android:layout_marginTop="106dp"
+                    android:layout_marginEnd="138dp"
+                    android:layout_marginBottom="73dp"
+                    app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="435dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/account_element">
+
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="141dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="142dp"
+                    android:layout_marginBottom="162dp"
+                    android:text="About me"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="647dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/account_element">
+
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="107dp"
+                    android:layout_height="74dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="125dp"
+                    android:layout_marginBottom="259dp"
+                    android:text="Achivments"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

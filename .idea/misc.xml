@@ -6,10 +6,26 @@
         <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable-v24/ic_baseline_fastfood_24.xml" value="0.24114583333333334" />
         <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable-v24/ic_dinner.xml" value="0.2703125" />
         <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable-v24/ic_menu.xml" value="0.26666666666666666" />
-        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable/account_avatar.xml" value="0.4" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable/account_element.xml" value="0.2703125" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable/avatar.xml" value="0.1" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable/breakfast.xml" value="0.26666666666666666" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable/element.xml" value="0.2703125" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.16302083333333334" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable/ic_baseline_arrow_forward_ios_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable/modal_bg.xml" value="0.2703125" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/drawable/recipes_element.xml" value="0.2703125" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/font/anton.xml" value="0.284375" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/font/baloo_bhai.xml" value="0.284375" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/font/meals.xml" value="0.28072916666666664" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/layout/activity_account.xml" value="0.1" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/layout/activity_main.xml" value="0.37166324435318276" />
         <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/layout/activity_menu.xml" value="0.15885416666666666" />
-        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/layout/activity_recipes.xml" value="0.4" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/layout/activity_recipes.xml" value="0.24821973550356052" />
         <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/layout/activity_shopping.xml" value="0.16145833333333334" />
+        <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/layout/content_account.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/layout/toolbar.xml" value="0.4" />
         <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/menu/nav_menu.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/wenze/AndroidStudioProjects/FeedApp/app/src/main/res/menu/top_menu.xml" value="0.225" />
