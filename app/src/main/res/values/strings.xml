@@ -7,4 +7,15 @@
     <string name="Option1">Option1</string>
     <string name="Option2">Option2</string>
     <string name="Account">Account</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">login</string>
+    <string name="LoginToFeedApp">Login</string>
+    <string name="RegisterNow2"><u>Register now!</u></string>
+    <string name="RegisterNow">Register now!</string>
+    <string name="register">Register</string>
+    <string name="email">E-mail</string>
+    <string name="already_have_an_account_login">Already have an account?</string>
+    <string name="create_an_account_and_stay_fit">Create an account and stay fit!</string>
+    <string name="login_now"><u>Login Now!</u></string>
 </resources>
