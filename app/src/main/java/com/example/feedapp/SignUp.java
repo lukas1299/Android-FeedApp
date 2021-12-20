@@ -34,9 +34,9 @@ public class SignUp extends AppCompatActivity {
     Button buttonRegister;
 
     JSONParser jsonParser = new JSONParser();
-    private static final String registerURL = "http://192.168.100.6/android/signup.php";
+    private static final String registerURL = "http://192.168.100.8/android/signup.php";
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PRODUCT = "product";
+    private static final String TAG_RESPONSEARRAY = "responseArray";
     private static final String TAG_USERNAME = "username";
     private static final String TAG_PASSWORD = "password";
     private static final String TAG_EMAIL = "email";
@@ -94,11 +94,11 @@ public class SignUp extends AppCompatActivity {
                     success = json.getInt(TAG_SUCCESS);
 
                     if (success == 1) {
-                        JSONArray responseArray = json.getJSONArray(TAG_PRODUCT);
+                        JSONArray responseArray = json.getJSONArray(TAG_RESPONSEARRAY);
                         JSONObject responseObject = responseArray.getJSONObject(0);
 
                         if(responseObject.getInt("main") == 1) {
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(),Login.class));
                             overridePendingTransition(0,0);
                         }else if (responseObject.getInt("main") == 0) {
                             showMessage = 1;

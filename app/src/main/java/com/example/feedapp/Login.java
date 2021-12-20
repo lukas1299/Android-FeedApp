@@ -2,7 +2,6 @@ package com.example.feedapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -34,13 +33,11 @@ public class Login extends AppCompatActivity {
     TextView textView;
     TextView test;
 
-    String pid;
     JSONParser jsonParser = new JSONParser();
 
-    private static final String loginURL = "http://192.168.100.6/android/login.php";
+    private static final String loginURL = "http://192.168.100.8/android/login.php";
     private static final String TAG_SUCCESS = "success";
-    private static final String TAG_PRODUCT = "product";
-    private static final String TAG_PID = "pid";
+    private static final String TAG_RESPONSEARRAY = "responseArray";
     private static final String TAG_USERNAME = "username";
     private static final String TAG_PASSWORD = "password";
 
@@ -58,7 +55,6 @@ public class Login extends AppCompatActivity {
         test = findViewById(R.id.textView9);
         Intent i = getIntent();
 
-        pid = i.getStringExtra(TAG_PID);
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,17 +89,23 @@ public class Login extends AppCompatActivity {
 
                     JSONObject json = jsonParser.makeHttpRequest(loginURL, "POST", params);
 
-                    Log.d("main", json.toString());
+                    //Log.d("main", json.toString());
 
                     success = json.getInt(TAG_SUCCESS);
 
                     if (success == 1) {
-                        JSONArray responseArray = json.getJSONArray(TAG_PRODUCT);
+                        JSONArray responseArray = json.getJSONArray(TAG_RESPONSEARRAY);
                         JSONObject responseObject = responseArray.getJSONObject(0);
 
                         if(responseObject.getInt("main") == 1) {
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                            overridePendingTransition(0,0);
+                            int id = responseObject.getInt("loggedIn");
+                            String loggedIn = String.valueOf(id);
+                            Intent i = new Intent(Login.this,MainActivity.class);
+                            i.putExtra("loggedIN",loggedIn);
+                            startActivity(i);
+
+                            /*startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            overridePendingTransition(0,0);*/
                         }else {
                             showMessage = 1;
                         }
