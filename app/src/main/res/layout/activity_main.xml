@@ -176,7 +176,7 @@
                 tools:layout_editor_absoluteY="61dp">
 
                 <ImageView
-                    android:id="@+id/forwardToMeal"
+                    android:id="@+id/forwardToMeal1"
                     android:layout_width="30dp"
                     android:layout_height="25dp"
                     android:layout_alignParentStart="true"
@@ -261,7 +261,7 @@
                 tools:layout_editor_absoluteY="61dp">
 
                 <ImageView
-                    android:id="@+id/imageViewAdd2"
+                    android:id="@+id/forwardToMeal2"
                     android:layout_width="30dp"
                     android:layout_height="25dp"
                     android:layout_alignParentStart="true"
@@ -345,7 +345,7 @@
                 tools:layout_editor_absoluteY="61dp">
 
                 <ImageView
-                    android:id="@+id/imageViewAdd3"
+                    android:id="@+id/forwardToMeal3"
                     android:layout_width="30dp"
                     android:layout_height="25dp"
                     android:layout_alignParentStart="true"
@@ -429,7 +429,7 @@
                 tools:layout_editor_absoluteY="61dp">
 
                 <ImageView
-                    android:id="@+id/imageViewAdd4"
+                    android:id="@+id/forwardToMeal4"
                     android:layout_width="30dp"
                     android:layout_height="25dp"
                     android:layout_alignParentStart="true"
@@ -513,7 +513,7 @@
                 tools:layout_editor_absoluteY="61dp">
 
                 <ImageView
-                    android:id="@+id/imageViewAdd5"
+                    android:id="@+id/forwardToMeal5"
                     android:layout_width="30dp"
                     android:layout_height="25dp"
                     android:layout_alignParentStart="true"
@@ -597,7 +597,7 @@
                 tools:layout_editor_absoluteY="61dp">
 
                 <ImageView
-                    android:id="@+id/imageViewAdd6"
+                    android:id="@+id/forwardToMeal6"
                     android:layout_width="30dp"
                     android:layout_height="25dp"
                     android:layout_alignParentStart="true"

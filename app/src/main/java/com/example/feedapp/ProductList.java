@@ -1,7 +1,11 @@
 package com.example.feedapp;
 
+import static android.view.View.GONE;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,9 +19,12 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.NameValuePair;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.message.BasicNameValuePair;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,8 +50,8 @@ public class ProductList extends ListActivity {
 
     private ArrayList<HashMap<String,String>> productList;
 
-    private static final String getProductListURL = "http://192.168.100.8/android/productSearch.php";
-    private static final String setMealHistory = "http://192.168.100.8/android/mealHistory.php";
+    private static final String getProductListURL = "http://192.168.100.9/android/productSearch.php";
+    private static final String setMealHistory = "http://192.168.100.9/android/mealHistory.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_RESPONSEARRAY = "responseArray";
     private static final String TAG_ID= "id";
@@ -60,7 +67,7 @@ public class ProductList extends ListActivity {
 
     String mealTime;
     String  loggedInID;
-
+    List<NameValuePair> historyParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +108,12 @@ public class ProductList extends ListActivity {
         qrButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//TODO: scanner qr
+                IntentIntegrator intentIntegrator = new IntentIntegrator(ProductList.this);
+                intentIntegrator.setPrompt("Scan barcode!");
+                intentIntegrator.setBeepEnabled(true);
+                intentIntegrator.setOrientationLocked(true);
+                intentIntegrator.setCaptureActivity(Capture.class);
+                intentIntegrator.initiateScan();
             }
 
         });
@@ -115,9 +127,23 @@ public class ProductList extends ListActivity {
                 addToMealsDialog(Integer.parseInt((((TextView)view.findViewById(R.id.id)).getText().toString())),
                         kcalInt,
                         ((TextView)view.findViewById(R.id.nameInfo)).getText().toString()
+
                 );
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+
+        if (intentResult.getContents() != null) {
+            nameOfProduct.setText(intentResult.getContents());
+        }else {
+            Toast.makeText(getApplicationContext(),"Oppps", Toast.LENGTH_SHORT).show();
+        }
     }
 
     class productSearching extends AsyncTask<String,String,String>{
@@ -153,6 +179,7 @@ public class ProductList extends ListActivity {
 
                             HashMap<String, String> map = new HashMap<>();
                             map.put(TAG_ID, id);
+
                             map.put(TAG_NAME, name);
                             map.put(TAG_CALORIES, calories + " kcal");
 
@@ -233,15 +260,26 @@ public class ProductList extends ListActivity {
                 String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
                 if(!temp.equals("")){
-                    List<NameValuePair> params = new ArrayList<NameValuePair>();
-                    params.add(new BasicNameValuePair("id_user",loggedInID));
-                    params.add(new BasicNameValuePair("id_product",String.valueOf(id)));
-                    params.add(new BasicNameValuePair("quantity",temp));
-                    params.add(new BasicNameValuePair("date",currentDate));
-
-                    JSONObject jsonObject = jsonParser.makeHttpRequest(setMealHistory,"POST",params);
+                    historyParams = new ArrayList<NameValuePair>();
+                    historyParams.add(new BasicNameValuePair("id_user",loggedInID));
+                    historyParams.add(new BasicNameValuePair("id_product",String.valueOf(id)));
+                    historyParams.add(new BasicNameValuePair("quantity",temp));
+                    historyParams.add(new BasicNameValuePair("date",currentDate));
+                    historyParams.add(new BasicNameValuePair("mealtype",mealTime));
+                    new sendHistory().execute();
                 }
             }
         });
+    }
+
+    class sendHistory extends AsyncTask<String, String, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            JSONObject json = jsonParser.makeHttpRequest(setMealHistory,"POST", historyParams);
+
+            Log.d("Create Response", json.toString());
+            return null;
+        }
     }
 }

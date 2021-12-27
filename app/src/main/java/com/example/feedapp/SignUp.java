@@ -34,7 +34,7 @@ public class SignUp extends AppCompatActivity {
     Button buttonRegister;
 
     JSONParser jsonParser = new JSONParser();
-    private static final String registerURL = "http://192.168.100.8/android/signup.php";
+    private static final String registerURL = "http://192.168.100.9/android/signup.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_RESPONSEARRAY = "responseArray";
     private static final String TAG_USERNAME = "username";

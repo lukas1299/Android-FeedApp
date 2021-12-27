@@ -35,7 +35,7 @@ public class Login extends AppCompatActivity {
 
     JSONParser jsonParser = new JSONParser();
 
-    private static final String loginURL = "http://192.168.100.8/android/login.php";
+    private static final String loginURL = "http://192.168.100.9/android/login.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_RESPONSEARRAY = "responseArray";
     private static final String TAG_USERNAME = "username";
