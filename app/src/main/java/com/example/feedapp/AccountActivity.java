@@ -17,10 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
-
-
-
+import android.widget.TextView;
 
 
 public class AccountActivity extends AppCompatActivity {
@@ -35,9 +35,9 @@ public class AccountActivity extends AppCompatActivity {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
         actionBar.setTitle(Html.fromHtml("<font color='#00000'>Account</font>"));
 
-
         setContentView(R.layout.activity_account);
         bottomNavigationView = findViewById(R.id.bottomNavBar);
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

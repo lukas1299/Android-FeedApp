@@ -18,4 +18,8 @@
     <string name="already_have_an_account_login">Already have an account?</string>
     <string name="create_an_account_and_stay_fit">Create an account and stay fit!</string>
     <string name="login_now"><u>Login Now!</u></string>
+    <string name="Summation">Summation</string>
+    <string name="Menu">Menu</string>
+    <string name="Calories">Calories</string>
+    <string name="Fat">Fat</string>
 </resources>

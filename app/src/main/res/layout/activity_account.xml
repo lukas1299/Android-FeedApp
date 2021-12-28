@@ -115,6 +115,7 @@
                     android:layout_marginBottom="73dp"
                     app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
 
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -146,6 +147,57 @@
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="28dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="47dp"
+                    android:layout_marginTop="47dp"
+                    android:layout_marginEnd="289dp"
+                    android:text="Age" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="49dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="155dp"
+                    android:layout_marginTop="47dp"
+                    android:layout_marginEnd="161dp"
+                    android:text="Weight" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="46dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="271dp"
+                    android:layout_marginTop="47dp"
+                    android:layout_marginEnd="48dp"
+                    android:text="Height" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="312dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="29dp"
+                    android:layout_marginBottom="161dp"
+                    app:srcCompat="@drawable/ic_baseline_settings_24" />
+
 
             </RelativeLayout>
 
