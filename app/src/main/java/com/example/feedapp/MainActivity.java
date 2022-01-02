@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.ImageView;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,7 +38,6 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -43,10 +45,15 @@ public class MainActivity extends AppCompatActivity {
 
    //TODO zmienne przechowujace cele kcal dla uzytkownika i wyliczone cele dla fat i carbohydrates
     int full = 1000;
+    public int kcalLimit;
+    public int proteinLimit;
+    public int fatLimit;
+    public int carbohydratesLimit;
 
     BottomNavigationView bottomNavigationView;
 
     private static final String getMealHistory = "http://192.168.100.9/android/getMealHistory.php";
+    private static final String getUserDemand = "http://192.168.100.9/android/getUserDemand.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_RESPONSEARRAY = "responseArray";
 
@@ -70,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView snackKcal;
     private TextView supperKcal;
 
-    private Double[][] mealsKcal;
+    Double[][] mealsKcal = new Double[6][4];
 
     String loggedInUser;
     Date currentDay;
@@ -79,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout relativeBarLayout;
     LinearLayout linearLayout;
     ScrollView scrollView1, scrollView2;
+    ProgressBar fatBar;
+    ProgressBar proteingBar;
+    ProgressBar carbohydratesBar;
 
     private JSONParser jsonParser = new JSONParser();
     private JSONArray responseArray;
@@ -94,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
         actionBar.setTitle(Html.fromHtml("<font color='#00000'>Menu</font>"));
 
+        proteingBar = findViewById(R.id.proteinBar);
+        fatBar = findViewById(R.id.fatBar);
+        carbohydratesBar = findViewById(R.id.carboBar);
+
         bottomNavigationView = findViewById(R.id.bottomNavBar);
         imageView1 = findViewById(R.id.forwardToMeal1);
         imageView2 = findViewById(R.id.forwardToMeal2);
@@ -103,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
         imageView6 = findViewById(R.id.forwardToMeal6);
         scrollView1 = (ScrollView)findViewById(R.id.scrollView3);
         relativeBarLayout = (RelativeLayout) findViewById(R.id.id_bar);
-        scrollView2 = (ScrollView) findViewById(R.id.chart);
-        linearLayout = (LinearLayout) findViewById(R.id.linearLayoutMain);
+        scrollView2 = (ScrollView) findViewById(R.id.chart);//layout z wykresami
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayoutMain);//bar z data
 
         arrowLeft = findViewById(R.id.arrowLeft);
         arrowRight = findViewById(R.id.arrowRight);
@@ -139,38 +153,26 @@ public class MainActivity extends AppCompatActivity {
 
                     actionBar.setTitle(Html.fromHtml("<font color='#00000'>Information</font>"));
 
-                    //Fat chart
-                    PieChart pieChart = (PieChart) findViewById(R.id.pieChart1);
-
-                    ArrayList<PieEntry> info = new ArrayList<>();
-
-                    info.add(new PieEntry(350,"Fat"));
-                    info.add(new PieEntry(full - 350,"Free"));
-
-                    PieDataSet pieDataSet = new PieDataSet(info,"Fat");
-                    pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
-                    pieDataSet.setValueTextSize(16f);
-
-                    PieData pieData = new PieData(pieDataSet);
-
-                    pieChart.setData(pieData);
-                    pieChart.getDescription().setEnabled(false);
-                    pieChart.setCenterText("Fat");
-                    pieChart.animate();
-
                     //Kcal chart
 
                     PieChart pieChart2 = (PieChart) findViewById(R.id.pieChart2);
 
                     ArrayList<PieEntry> info2 = new ArrayList<>();
 
-                    info2.add(new PieEntry(350,"Calories"));
-                    info2.add(new PieEntry(full - 350,"Free"));
+                    if((kcalLimit - (mealsKcal[0][0] + mealsKcal[1][0] + mealsKcal[2][0] +
+                            mealsKcal[3][0] + mealsKcal[4][0] + mealsKcal[5][0])) < 0){
+                        info2.add(new PieEntry((float) (mealsKcal[0][0] + mealsKcal[1][0] + mealsKcal[2][0] +
+                                                        mealsKcal[3][0] + mealsKcal[4][0] + mealsKcal[5][0]),"Out of " + kcalLimit));
+                    }else {
+                        info2.add(new PieEntry(kcalLimit,"Calories"));
+                        info2.add(new PieEntry((float) (kcalLimit - (mealsKcal[0][0] + mealsKcal[1][0] + mealsKcal[2][0] +
+                                mealsKcal[3][0] + mealsKcal[4][0] + mealsKcal[5][0])),"Free"));
+                    }
 
-                    PieDataSet pieDataSet2 = new PieDataSet(info2,"Calories");
-                    pieDataSet2.setColors(ColorTemplate.VORDIPLOM_COLORS);
-                    pieDataSet2.setValueTextColor(Color.BLACK);
+
+                    PieDataSet pieDataSet2 = new PieDataSet(info2,"");
+                    pieDataSet2.setColors(ColorTemplate.PASTEL_COLORS);
+
 
                     pieDataSet2.setValueTextSize(16f);
 
@@ -182,7 +184,90 @@ public class MainActivity extends AppCompatActivity {
                     pieChart2.setCenterText("Calories");
                     pieChart2.animate();
 
-                    // Carbohydrates chart
+
+                    //Fat chart
+                    PieChart pieChart = (PieChart) findViewById(R.id.pieChart1);
+
+                    ArrayList<PieEntry> info = new ArrayList<>();
+                    if ((fatLimit - (mealsKcal[0][2] + mealsKcal[1][2] + mealsKcal[2][2] +
+                            mealsKcal[3][2] + mealsKcal[4][2] + mealsKcal[5][2])) < 0){
+                        info.add(new PieEntry((float) (mealsKcal[0][2] + mealsKcal[1][2] + mealsKcal[2][2] +
+                                                        mealsKcal[3][2] + mealsKcal[4][2] + mealsKcal[5][2]),"Out of " + fatLimit));
+                    }else {
+                        info.add(new PieEntry(fatLimit,"Fat"));
+                        info.add(new PieEntry((float) (fatLimit - (mealsKcal[0][2] + mealsKcal[1][2] + mealsKcal[2][2] +
+                                mealsKcal[3][2] + mealsKcal[4][2] + mealsKcal[5][2])),"Free"));
+                    }
+
+
+                    PieDataSet pieDataSet = new PieDataSet(info,"");
+                    pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                    pieDataSet.setValueTextColor(Color.BLACK);
+
+                    pieDataSet.setValueTextSize(16f);
+
+                    PieData pieData = new PieData(pieDataSet);
+
+                    pieChart.setData(pieData);
+                    pieChart.getDescription().setEnabled(false);
+                    pieChart.setCenterText("Fat");
+                    pieChart.animate();
+
+                    //Protein chart
+                    PieChart pieChart3 = (PieChart) findViewById(R.id.pieChart3);
+
+                    ArrayList<PieEntry> info3 = new ArrayList<>();
+
+                    if((proteinLimit - (mealsKcal[0][1] + mealsKcal[1][1] + mealsKcal[2][1] +
+                            mealsKcal[3][1] + mealsKcal[4][1] + mealsKcal[5][1])) < 0 ){
+                        info3.add(new PieEntry((float) (mealsKcal[0][1] + mealsKcal[1][1] + mealsKcal[2][1] +
+                                                        mealsKcal[3][1] + mealsKcal[4][1] + mealsKcal[5][1]),"Out of " + proteinLimit));
+                    }else {
+                        info3.add(new PieEntry(proteinLimit,"Protein"));
+                        info3.add(new PieEntry((float) (proteinLimit - (mealsKcal[0][1] + mealsKcal[1][1] + mealsKcal[2][1] +
+                                mealsKcal[3][1] + mealsKcal[4][1] + mealsKcal[5][1])),"Free"));
+                    }
+
+                    PieDataSet pieDataSet3 = new PieDataSet(info3,"");
+                    pieDataSet3.setColors(ColorTemplate.COLORFUL_COLORS);
+
+                    pieDataSet3.setValueTextSize(16f);
+
+                    PieData pieData3 = new PieData(pieDataSet3);
+
+                    pieChart3.setData(pieData3);
+                    pieChart3.getDescription().setEnabled(false);
+                    pieChart3.setCenterText("Protein");
+                    pieChart3.animate();
+
+                    //Carbo chart
+                    PieChart pieChart4 = (PieChart) findViewById(R.id.pieChart4);
+
+                    ArrayList<PieEntry> info4 = new ArrayList<>();
+
+                    if ((carbohydratesLimit - (mealsKcal[0][3] + mealsKcal[1][3] + mealsKcal[2][3] +
+                            mealsKcal[3][3] + mealsKcal[4][3] + mealsKcal[5][3])) < 0){
+                        info4.add(new PieEntry((float) (mealsKcal[0][3] + mealsKcal[1][3] + mealsKcal[2][3] +
+                                                        mealsKcal[3][3] + mealsKcal[4][3] + mealsKcal[5][3]),"Out of " + carbohydratesLimit));
+                    }else{
+                        info4.add(new PieEntry(carbohydratesLimit,"Carbo"));
+                        info4.add(new PieEntry((float) (carbohydratesLimit - (mealsKcal[0][3] + mealsKcal[1][3] + mealsKcal[2][3] +
+                                mealsKcal[3][3] + mealsKcal[4][3] + mealsKcal[5][3])),"Free"));
+                    }
+
+                    PieDataSet pieDataSet4 = new PieDataSet(info4,"");
+                    pieDataSet4.setColors(ColorTemplate.JOYFUL_COLORS);
+                    pieDataSet4.setValueTextColor(Color.BLACK);
+
+                    pieDataSet4.setValueTextSize(16f);
+
+                    PieData pieData4 = new PieData(pieDataSet4);
+
+                    pieChart4.setData(pieData4);
+                    pieChart4.getDescription().setEnabled(false);
+                    pieChart4.setCenterText("Carbohydrates");
+                    pieChart4.animate();
+
 
                 }
 
@@ -268,10 +353,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        currentDay = new Date();
-        correctDate = new Date();
-        properDayName(0, currentDay.getTime());
-
         arrowLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -286,12 +367,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        currentDay = new Date();
+        correctDate = new Date();
+        properDayName(0, currentDay.getTime());
+        new loadDemand().execute();
+
     }
 
     public void properDayName(int daysQuantity, long time){
 
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd");
+        SimpleDateFormat dateComprasionFormat = new SimpleDateFormat("dd-MM-yyyy");
         Long dayInMilliSeconds = Long.valueOf(24 * 60 * 60 * 1000);
 
         if (daysQuantity == 0){//biezacy dzien
@@ -300,11 +387,11 @@ public class MainActivity extends AppCompatActivity {
             Date presentDate = new Date(time);
             Date previousDate = new Date(time - dayInMilliSeconds);
             presentDay.setText(dayFormat.format(presentDate));
-            nextDay.setText(dayFormat.format(nextDate));
-            previousDay.setText(dayFormat.format(previousDate));
+            nextDay.setText(dayFormat.format(nextDate) + " " + dateFormat.format(nextDate));
+            previousDay.setText(dayFormat.format(previousDate) + " " + dateFormat.format(previousDate));
             currentDay = presentDate;
 
-            if ((dayFormat.format(correctDate)).equals(dayFormat.format(currentDay))){
+            if ((dateComprasionFormat.format(correctDate)).equals(dateComprasionFormat.format(currentDay))){
                 imageView1.setVisibility(View.VISIBLE);
                 imageView2.setVisibility(View.VISIBLE);
                 imageView3.setVisibility(View.VISIBLE);
@@ -321,6 +408,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             new loadHistory().execute();
+            new loadDemand().execute();
 
         }else {//nastepne
 
@@ -328,11 +416,11 @@ public class MainActivity extends AppCompatActivity {
             Date presentDate = new Date(time + (daysQuantity * dayInMilliSeconds));
             Date previousDate = new Date(time - dayInMilliSeconds + (daysQuantity * dayInMilliSeconds));
             presentDay.setText(dayFormat.format(presentDate));
-            nextDay.setText(dayFormat.format(nextDate));
-            previousDay.setText(dayFormat.format(previousDate));
+            nextDay.setText(dayFormat.format(nextDate)  + " " + dateFormat.format(nextDate));
+            previousDay.setText(dayFormat.format(previousDate)  + " " + dateFormat.format(previousDate));
             currentDay = presentDate;
 
-            if ((dayFormat.format(correctDate)).equals(dayFormat.format(currentDay))){
+            if ((dateComprasionFormat.format(correctDate)).equals(dateComprasionFormat.format(currentDay))){
                 imageView1.setVisibility(View.VISIBLE);
                 imageView2.setVisibility(View.VISIBLE);
                 imageView3.setVisibility(View.VISIBLE);
@@ -349,6 +437,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             new loadHistory().execute();
+            new loadDemand().execute();
 
         }
     }
@@ -365,14 +454,14 @@ public class MainActivity extends AppCompatActivity {
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
                 params.add(new BasicNameValuePair("id_user", loggedInUser));
                 params.add(new BasicNameValuePair("date", dateToSend));
-
+                System.out.println(loggedInUser);
                 JSONObject json = jsonParser.makeHttpRequest(getMealHistory, "POST", params);
 
                 //Log.d("main", json.toString());
 
                 success = json.getInt(TAG_SUCCESS);
 
-                mealsKcal = new Double[6][1];
+
 
                 for (int i = 0; i < mealsKcal.length; i++){
                     for (int c = 0; c < mealsKcal[i].length; c++) mealsKcal[i][c] = 0.0;
@@ -394,7 +483,10 @@ public class MainActivity extends AppCompatActivity {
                         for (int c = 0; c < 6; c++){
                             int temp = c + 1;
                             if (String.valueOf(temp).equals(mealtype)){
-                                mealsKcal[c][0] = mealsKcal[c][0] + Double.parseDouble(quantity) / 100 * Double.parseDouble(calories);
+                                mealsKcal[c][0] = mealsKcal[c][0] + Double.parseDouble(quantity) / 100 * Double.parseDouble(calories);//spozyte kalorie
+                                mealsKcal[c][1] = mealsKcal[c][1] + Double.parseDouble(quantity) / 100 * Double.parseDouble(protein);// -||- bialko
+                                mealsKcal[c][2] = mealsKcal[c][2] + Double.parseDouble(quantity) / 100 * Double.parseDouble(fat);// -||- tluszcz
+                                mealsKcal[c][3] = mealsKcal[c][3] + Double.parseDouble(quantity) / 100 * Double.parseDouble(carbohydrates);//-||- carbo
                                 break;
                             }
                         }
@@ -412,8 +504,87 @@ public class MainActivity extends AppCompatActivity {
             snackKcal.setText(String.valueOf(String.format("%.0f", mealsKcal[4][0])) + " kcal");
             supperKcal.setText(String.valueOf(String.format("%.0f", mealsKcal[5][0])) + " kcal");
 
+
+
             return null;
         }
     }
+
+    class loadDemand extends AsyncTask<String, String, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            int success;
+            try {
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("id_user", loggedInUser));
+                JSONObject json = jsonParser.makeHttpRequest(getUserDemand, "POST", params);
+
+                Log.d("main", json.toString());
+
+                success = json.getInt(TAG_SUCCESS);
+
+                if (success == 1) {
+                    responseArray = json.getJSONArray(TAG_RESPONSEARRAY);
+                    JSONObject jsonObject = responseArray.getJSONObject(0);
+
+                    kcalLimit = Integer.parseInt(jsonObject.getString("demand"));
+                    proteinLimit = Integer.parseInt(jsonObject.getString("protein"));
+                    carbohydratesLimit = Integer.parseInt(jsonObject.getString("carbohydrates"));
+                    fatLimit = Integer.parseInt(jsonObject.getString("fat"));
+
+
+                    proteingBar.setMax(proteinLimit);
+                    fatBar.setMax(fatLimit);
+                    carbohydratesBar.setMax(carbohydratesLimit);
+
+                    double proteinSummary = 0;
+                    for (Double[] doubles : mealsKcal) {
+                        proteinSummary += doubles[1];
+                    }
+                    double fatSummary = 0;
+                    for (Double[] doubles : mealsKcal) {
+                        fatSummary += doubles[2];
+                    }
+                    double carbohydratesSummary = 0;
+                    for (Double[] doubles : mealsKcal) {
+                        carbohydratesSummary += doubles[3];
+                    }
+                    //TODO: zmiana koloru wzrast z % zapelnieniem paska
+                    proteingBar.setProgress((int) proteinSummary);
+                    fatBar.setProgress((int) fatSummary);
+                    carbohydratesBar.setProgress((int) carbohydratesSummary);
+
+                    if (proteinSummary > proteinLimit * 0.5 && proteinSummary < proteinLimit * 0.9){
+                        proteingBar.getProgressDrawable().setColorFilter(
+                                Color.YELLOW, android.graphics.PorterDuff.Mode.SRC_IN);
+                    }else if(proteinSummary > proteinLimit * 0.9){
+                        proteingBar.getProgressDrawable().setColorFilter(
+                                Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
+                    }
+
+                    if (fatSummary > fatLimit * 0.5 && fatSummary < fatLimit * 0.9){
+                        fatBar.getProgressDrawable().setColorFilter(
+                                Color.YELLOW, android.graphics.PorterDuff.Mode.SRC_IN);
+                    }else if(fatSummary > fatLimit * 0.9){
+                        fatBar.getProgressDrawable().setColorFilter(
+                                Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
+                    }
+
+                    if (carbohydratesSummary> carbohydratesLimit * 0.5 && carbohydratesSummary < carbohydratesLimit * 0.9){
+                        carbohydratesBar.getProgressDrawable().setColorFilter(
+                                Color.YELLOW, android.graphics.PorterDuff.Mode.SRC_IN);
+                    }else if(carbohydratesSummary > carbohydratesLimit * 0.9){
+                        carbohydratesBar.getProgressDrawable().setColorFilter(
+                                Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
+                    }
+
+                    }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }//and stats
 }
 

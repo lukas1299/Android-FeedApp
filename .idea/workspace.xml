@@ -14,14 +14,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ace06-09e6-48ec-ad82-987f5618e9c5" name="Default Changelist" comment="Barcode scanner">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_settings_24.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="ec8ace06-09e6-48ec-ad82-987f5618e9c5" name="Default Changelist" comment="History changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/progressbar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/progressbar.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640618341880</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="History changes">
+      <created>1640810757411</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1640810757411</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -229,6 +233,7 @@
     <MESSAGE value="xd" />
     <MESSAGE value="wyszukiwanie produktu" />
     <MESSAGE value="Barcode scanner" />
-    <option name="LAST_COMMIT_MESSAGE" value="Barcode scanner" />
+    <MESSAGE value="History changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="History changes" />
   </component>
 </project>

@@ -14,7 +14,7 @@
         android:id="@+id/chart"
         android:layout_width="409dp"
         android:layout_height="495dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/scrollView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,10 +32,10 @@
                 android:layout_margin="10dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:text="@string/Fat" />
+                android:text="@string/Calories" />
 
             <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieChart1"
+                android:id="@+id/pieChart2"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_gravity="center" />
@@ -46,10 +46,39 @@
                 android:layout_margin="10dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:text="@string/Calories" />
+                android:text="@string/Fat" />
 
             <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieChart2"
+                android:id="@+id/pieChart1"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="Protein" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart3"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="Carbohydrates" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart4"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_gravity="center"/>
@@ -79,7 +108,7 @@
         android:id="@+id/linearLayoutMain"
         android:layout_width="409dp"
         android:layout_height="60dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:layout_gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -204,7 +233,7 @@
         android:id="@+id/scrollView3"
         android:layout_width="412dp"
         android:layout_height="437dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toTopOf="@+id/weekDayName"
         app:layout_constraintEnd_toEndOf="parent"
