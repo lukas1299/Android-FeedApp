@@ -16,7 +16,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/nav_menu" />
+        app:menu="@menu/nav_menu" >
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -130,6 +132,16 @@
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/account_element">
 
+
+                <ImageView
+                    android:id="@+id/logOutButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="29dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="29dp"
+                    android:layout_marginBottom="161dp"
+                    android:background="@drawable/ic_baseline_login_24" />
 
                 <TextView
                     android:id="@+id/textView14"

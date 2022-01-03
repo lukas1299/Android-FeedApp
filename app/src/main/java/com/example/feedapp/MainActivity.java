@@ -1,13 +1,12 @@
 package com.example.feedapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -43,8 +41,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-   //TODO zmienne przechowujace cele kcal dla uzytkownika i wyliczone cele dla fat i carbohydrates
-    int full = 1000;
     public int kcalLimit;
     public int proteinLimit;
     public int fatLimit;
@@ -79,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     Double[][] mealsKcal = new Double[6][4];
 
-    String loggedInUser;
+    int loggedInUser;
     Date currentDay;
     Date correctDate;
 
@@ -98,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loggedInUser = getIntent().getStringExtra("loggedIN");
+        SharedPreferences sharedPreferences = getSharedPreferences("lifeCycle",MODE_PRIVATE);
+        loggedInUser = sharedPreferences.getInt("loggedIN",0);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
@@ -370,8 +367,15 @@ public class MainActivity extends AppCompatActivity {
         currentDay = new Date();
         correctDate = new Date();
         properDayName(0, currentDay.getTime());
-        new loadDemand().execute();
 
+        System.out.println("test " + loggedInUser);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        properDayName(0,currentDay.getTime());
     }
 
     public void properDayName(int daysQuantity, long time){
@@ -452,16 +456,13 @@ public class MainActivity extends AppCompatActivity {
             int success;
             try {
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new BasicNameValuePair("id_user", loggedInUser));
+                params.add(new BasicNameValuePair("id_user", String.valueOf(loggedInUser)));
                 params.add(new BasicNameValuePair("date", dateToSend));
-                System.out.println(loggedInUser);
                 JSONObject json = jsonParser.makeHttpRequest(getMealHistory, "POST", params);
 
                 //Log.d("main", json.toString());
 
                 success = json.getInt(TAG_SUCCESS);
-
-
 
                 for (int i = 0; i < mealsKcal.length; i++){
                     for (int c = 0; c < mealsKcal[i].length; c++) mealsKcal[i][c] = 0.0;
@@ -517,10 +518,10 @@ public class MainActivity extends AppCompatActivity {
             int success;
             try {
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new BasicNameValuePair("id_user", loggedInUser));
+                params.add(new BasicNameValuePair("id_user", String.valueOf(loggedInUser)));
                 JSONObject json = jsonParser.makeHttpRequest(getUserDemand, "POST", params);
 
-                Log.d("main", json.toString());
+                //Log.d("main", json.toString());
 
                 success = json.getInt(TAG_SUCCESS);
 
@@ -550,7 +551,7 @@ public class MainActivity extends AppCompatActivity {
                     for (Double[] doubles : mealsKcal) {
                         carbohydratesSummary += doubles[3];
                     }
-                    //TODO: zmiana koloru wzrast z % zapelnieniem paska
+
                     proteingBar.setProgress((int) proteinSummary);
                     fatBar.setProgress((int) fatSummary);
                     carbohydratesBar.setProgress((int) carbohydratesSummary);
@@ -561,6 +562,9 @@ public class MainActivity extends AppCompatActivity {
                     }else if(proteinSummary > proteinLimit * 0.9){
                         proteingBar.getProgressDrawable().setColorFilter(
                                 Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
+                    }else {
+                        proteingBar.getProgressDrawable().setColorFilter(
+                                Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN);
                     }
 
                     if (fatSummary > fatLimit * 0.5 && fatSummary < fatLimit * 0.9){
@@ -569,6 +573,9 @@ public class MainActivity extends AppCompatActivity {
                     }else if(fatSummary > fatLimit * 0.9){
                         fatBar.getProgressDrawable().setColorFilter(
                                 Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
+                    }else {
+                        fatBar.getProgressDrawable().setColorFilter(
+                                Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN);
                     }
 
                     if (carbohydratesSummary> carbohydratesLimit * 0.5 && carbohydratesSummary < carbohydratesLimit * 0.9){
@@ -577,6 +584,9 @@ public class MainActivity extends AppCompatActivity {
                     }else if(carbohydratesSummary > carbohydratesLimit * 0.9){
                         carbohydratesBar.getProgressDrawable().setColorFilter(
                                 Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
+                    }else {
+                        carbohydratesBar.getProgressDrawable().setColorFilter(
+                                Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN);
                     }
 
                     }

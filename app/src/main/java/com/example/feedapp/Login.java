@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +46,15 @@ public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("lifeCycle",MODE_PRIVATE);
+        int temp = sharedPreferences.getInt("loggedIN",0);
+
+        if (temp != 0 ){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            overridePendingTransition(0,0);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -54,7 +64,6 @@ public class Login extends AppCompatActivity {
         editTextPassword = findViewById(R.id.passwordText);
         test = findViewById(R.id.textView9);
         Intent i = getIntent();
-
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +90,9 @@ public class Login extends AppCompatActivity {
             String username = editTextUserName.getText().toString();
             String password = editTextPassword.getText().toString();
 
+            SharedPreferences sharedPreferences = getSharedPreferences("lifeCycle",MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
             if(!username.equals("") && !password.equals("")) {
                 try {
                     List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -98,14 +110,13 @@ public class Login extends AppCompatActivity {
                         JSONObject responseObject = responseArray.getJSONObject(0);
 
                         if(responseObject.getInt("main") == 1) {
-                            int id = responseObject.getInt("loggedIn");
-                            String loggedIn = String.valueOf(id);
-                            Intent i = new Intent(Login.this,MainActivity.class);
-                            i.putExtra("loggedIN",loggedIn);
-                            startActivity(i);
 
-                            /*startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                            overridePendingTransition(0,0);*/
+                            int id = responseObject.getInt("loggedIn");
+                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            overridePendingTransition(0,0);
+                            editor.putInt("loggedIN",id);
+                            editor.commit();
+
                         }else {
                             showMessage = 1;
                         }

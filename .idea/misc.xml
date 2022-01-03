@@ -10,7 +10,9 @@
         <entry key="..\:/Users/barto/AndroidStudioProjects/Android-FeedApp/app/src/main/res/layout/activity_product_list.xml" value="0.371875" />
         <entry key="..\:/Users/barto/AndroidStudioProjects/Android-FeedApp/app/src/main/res/layout/activity_recipes.xml" value="0.371875" />
         <entry key="..\:/Users/barto/AndroidStudioProjects/Android-FeedApp/app/src/main/res/layout/activity_sign_up.xml" value="0.371875" />
-        <entry key="..\:/Users/barto/AndroidStudioProjects/Android-FeedApp/app/src/main/res/layout/item_list.xml" value="0.5" />
+        <entry key="..\:/Users/barto/AndroidStudioProjects/Android-FeedApp/app/src/main/res/layout/item_list.xml" value="0.33" />
+        <entry key="..\:/Users/barto/AndroidStudioProjects/Android-FeedApp/app/src/main/res/layout/item_list_details_popup.xml" value="0.275" />
+        <entry key="..\:/Users/barto/AndroidStudioProjects/Android-FeedApp/app/src/main/res/layout/product_details_popup.xml" value="0.275" />
         <entry key="..\:/Users/barto/AndroidStudioProjects/Android-FeedApp/app/src/main/res/layout/progressbar.xml" value="0.371875" />
         <entry key="..\:/Users/barto/AndroidStudioProjects/Android-FeedApp/app/src/main/res/layout/quantity_popup.xml" value="0.67" />
         <entry key="..\:/Users/barto/AndroidStudioProjects/Android-FeedApp/app/src/main/res/menu/nav_menu.xml" value="0.371875" />
