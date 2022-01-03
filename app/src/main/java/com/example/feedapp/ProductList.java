@@ -1,10 +1,8 @@
 package com.example.feedapp;
 
-import static android.view.View.GONE;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,7 +30,6 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -179,7 +176,6 @@ public class ProductList extends ListActivity {
 
                             HashMap<String, String> map = new HashMap<>();
                             map.put(TAG_ID, id);
-
                             map.put(TAG_NAME, name);
                             map.put(TAG_CALORIES, calories + " kcal");
 

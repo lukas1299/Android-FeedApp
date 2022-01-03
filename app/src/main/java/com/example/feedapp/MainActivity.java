@@ -1,15 +1,26 @@
 package com.example.feedapp;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -37,7 +48,9 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,6 +73,13 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView5;
     private ImageView imageView6;
 
+    private ImageView forwardToList1;
+    private ImageView forwardToList2;
+    private ImageView forwardToList3;
+    private ImageView forwardToList4;
+    private ImageView forwardToList5;
+    private ImageView forwardToList6;
+
     private ImageView arrowLeft;
     private ImageView arrowRight;
     private TextView previousDay;
@@ -72,6 +92,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView dinerKcal;
     private TextView snackKcal;
     private TextView supperKcal;
+
+    private ArrayList<String> productListBreakfast;
+    private ArrayList<String> productListBreakfastII;
+    private ArrayList<String> productListLunch;
+    private ArrayList<String> productListDinner;
+    private ArrayList<String> productListSnack;
+    private ArrayList<String> productListSupper;
+
+    private ListView listView;
+    private LayoutInflater layoutInflater;
+    private PopupWindow popupWindow;
 
     Double[][] mealsKcal = new Double[6][4];
 
@@ -129,6 +160,8 @@ public class MainActivity extends AppCompatActivity {
         dinerKcal = findViewById(R.id.kcal4);
         snackKcal = findViewById(R.id.kcal5);
         supperKcal =  findViewById(R.id.kcal6);
+
+
 
         relativeBarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -367,9 +400,114 @@ public class MainActivity extends AppCompatActivity {
         currentDay = new Date();
         correctDate = new Date();
         properDayName(0, currentDay.getTime());
+        //TODO:problem z wydajnoscia
+        forwardToList1 = findViewById(R.id.imageViewList1);
+        forwardToList1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        System.out.println("test " + loggedInUser);
+                layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+                ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup,null);
 
+                popupWindow = new PopupWindow(container,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
+                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                listView = container.findViewById(R.id.listview);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,productListBreakfast);
+                listView.setAdapter(adapter);
+                popupWindow.showAsDropDown(forwardToList1,Gravity.CENTER,0,0);
+            }
+        });
+
+        forwardToList2 = findViewById(R.id.imageViewList2);
+        forwardToList2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+                ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup,null);
+
+                popupWindow = new PopupWindow(container,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
+                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                listView = container.findViewById(R.id.listview);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,productListBreakfastII);
+                listView.setAdapter(adapter);
+                popupWindow.showAsDropDown(forwardToList2,Gravity.CENTER,0,0);
+            }
+        });
+
+        forwardToList3 = findViewById(R.id.imageViewList3);
+        forwardToList3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+                ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup,null);
+
+                popupWindow = new PopupWindow(container,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
+                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                listView = container.findViewById(R.id.listview);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,productListLunch);
+                listView.setAdapter(adapter);
+                popupWindow.showAsDropDown(forwardToList3,Gravity.CENTER,0,0);
+            }
+        });
+
+        forwardToList4 = findViewById(R.id.imageViewList4);
+        forwardToList4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+                ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup,null);
+
+                popupWindow = new PopupWindow(container,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
+                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                listView = container.findViewById(R.id.listview);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,productListDinner);
+                listView.setAdapter(adapter);
+                popupWindow.showAsDropDown(forwardToList4,Gravity.CENTER,0,0);
+            }
+        });
+
+        forwardToList5 = findViewById(R.id.imageViewList5);
+        forwardToList5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+                ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup,null);
+
+                popupWindow = new PopupWindow(container,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
+                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                listView = container.findViewById(R.id.listview);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,productListSnack);
+                listView.setAdapter(adapter);
+                popupWindow.showAsDropDown(forwardToList5,Gravity.CENTER,0,0);
+            }
+        });
+
+        forwardToList6 = findViewById(R.id.imageViewList6);
+        forwardToList6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+                ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup,null);
+
+                popupWindow = new PopupWindow(container,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
+                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                listView = container.findViewById(R.id.listview);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,productListSupper);
+                listView.setAdapter(adapter);
+                popupWindow.showAsDropDown(forwardToList6,Gravity.CENTER,0,0);
+            }
+        });
     }
 
     @Override
@@ -470,6 +608,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if (success == 1) {
                     responseArray = json.getJSONArray(TAG_RESPONSEARRAY);
+                    productListBreakfast = new ArrayList<>();
+                    productListBreakfastII = new ArrayList<>();
+                    productListSupper = new ArrayList<>();
+                    productListSnack = new ArrayList<>();
+                    productListDinner = new ArrayList<>();
+                    productListLunch = new ArrayList<>();
                     for (int i = 0; i < responseArray.length(); i++){
                        JSONObject jsonObject = responseArray.getJSONObject(i);
 
@@ -488,11 +632,28 @@ public class MainActivity extends AppCompatActivity {
                                 mealsKcal[c][1] = mealsKcal[c][1] + Double.parseDouble(quantity) / 100 * Double.parseDouble(protein);// -||- bialko
                                 mealsKcal[c][2] = mealsKcal[c][2] + Double.parseDouble(quantity) / 100 * Double.parseDouble(fat);// -||- tluszcz
                                 mealsKcal[c][3] = mealsKcal[c][3] + Double.parseDouble(quantity) / 100 * Double.parseDouble(carbohydrates);//-||- carbo
-                                break;
+                                //break;
+
+                                HashMap<String, String> map = new HashMap<>();
+                                map.put("name", name);
+                                map.put("quantity", quantity);
+
+                                if (temp == 1){
+                                    productListBreakfast.add(name + " " + quantity + "g");
+                                }else if (temp == 2){
+                                    productListBreakfastII.add(name + " " + quantity + "g");
+                                }else if (temp == 3){
+                                    productListLunch.add(name + " " + quantity + "g");
+                                }else if (temp == 4){
+                                    productListDinner.add(name + " " + quantity + "g");
+                                }else if (temp == 5){
+                                    productListSnack.add(name + " " + quantity + "g");
+                                }else if (temp == 6){
+                                    productListSupper.add(name + " " + quantity + "g");
+                                }
                             }
                         }
                     }
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
