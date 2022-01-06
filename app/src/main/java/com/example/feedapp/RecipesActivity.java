@@ -8,9 +8,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,12 +37,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class RecipesActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    private static final String setMealHistory = "http://192.168.100.9/android/mealHistory.php";
+    private static final String setMealHistory = "http://192.168.100.9/android/getRecipes.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_RESPONSEARRAY = "responseArray";
     private JSONParser jsonParser = new JSONParser();
@@ -50,9 +59,15 @@ public class RecipesActivity extends AppCompatActivity {
     int  loggedInID;
     int recipeToShow;
 
-    String id_readymeals;
-    String name;
-    String description;
+    private LayoutInflater layoutInflater;
+    private PopupWindow popupWindow;
+    private TextView recipeName;
+    private TextView recipeDescription;
+    private Spinner mealsSpinner;
+
+    public String id_readymeals;
+    public String name = "";
+    public String description = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,7 +108,14 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recipeToShow = 1;
-                new loadRecipe().execute();
+                try {
+                    new loadRecipe().execute().get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                recipePopup();
             }
         });
 
@@ -102,7 +124,14 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recipeToShow = 2;
-                new loadRecipe().execute();
+                try {
+                    new loadRecipe().execute().get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                recipePopup();
             }
         });
 
@@ -111,7 +140,14 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recipeToShow = 3;
-                new loadRecipe().execute();
+                try {
+                    new loadRecipe().execute().get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                recipePopup();
             }
         });
 
@@ -120,7 +156,14 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recipeToShow = 4;
-                new loadRecipe().execute();
+                try {
+                    new loadRecipe().execute().get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                recipePopup();
             }
         });
 
@@ -129,7 +172,14 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recipeToShow = 5;
-                new loadRecipe().execute();
+                try {
+                    new loadRecipe().execute().get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                recipePopup();
             }
         });
 
@@ -138,9 +188,39 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recipeToShow = 6;
-                new loadRecipe().execute();
+                try {
+                    new loadRecipe().execute().get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                recipePopup();
             }
         });
+    }
+
+    public void recipePopup(){
+
+        layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+        ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.recipe_details_popup,null);
+
+        popupWindow = new PopupWindow(container, LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+        recipeName = container.findViewById(R.id.RecipeNameTextview);
+        recipeDescription = container.findViewById(R.id.RecipeDescTextView);
+
+        recipeName.setText(name);
+        System.out.println(description);
+        recipeDescription.setText(description);
+
+        mealsSpinner = container.findViewById(R.id.mealsspinner);
+        ArrayAdapter<CharSequence> activityAdapter = ArrayAdapter.createFromResource(RecipesActivity.this,R.array.meals, android.R.layout.simple_spinner_item);
+        activityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mealsSpinner.setAdapter(activityAdapter);
+
+        popupWindow.showAsDropDown(recipe1, Gravity.CENTER,0,0);
     }
 
     class loadRecipe extends AsyncTask<String, String, String>{
@@ -155,7 +235,7 @@ public class RecipesActivity extends AppCompatActivity {
                     params.add(new BasicNameValuePair("id_readymeals", String.valueOf(recipeToShow)));
 
                     JSONObject json = jsonParser.makeHttpRequest(setMealHistory, "POST", params);
-
+                    System.out.println(recipeToShow);
                     Log.d("main", json.toString());
 
                     success = json.getInt(TAG_SUCCESS);
@@ -167,7 +247,7 @@ public class RecipesActivity extends AppCompatActivity {
 
                         id_readymeals = jsonTemp.getString("id_readymeals");
                         name = jsonTemp.getString("nazwa");
-                        description = jsonTemp.getString("opis");
+                        description =  jsonTemp.getString("opis");
 
                     }
                 } catch (JSONException e) {

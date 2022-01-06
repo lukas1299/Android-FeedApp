@@ -406,7 +406,6 @@ public class MainActivity extends AppCompatActivity {
         forwardToList1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
                 ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup,null);
 
