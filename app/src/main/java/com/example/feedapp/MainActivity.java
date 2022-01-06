@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -671,7 +672,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
-
+    //TODO:liczy zapotrzebowanie 2 razy, dlaczego
     class loadDemand extends AsyncTask<String, String, String>{
 
         @Override

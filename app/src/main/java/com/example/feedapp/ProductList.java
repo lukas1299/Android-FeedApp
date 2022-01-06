@@ -63,7 +63,7 @@ public class ProductList extends ListActivity {
     private Button popupAcceptQuantity;
 
     String mealTime;
-    String  loggedInID;
+    String loggedInID;
     List<NameValuePair> historyParams;
 
     @Override

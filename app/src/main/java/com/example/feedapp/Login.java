@@ -112,8 +112,10 @@ public class Login extends AppCompatActivity {
                         if(responseObject.getInt("main") == 1) {
 
                             int id = responseObject.getInt("loggedIn");
+                            String userName = responseObject.getString("userName");
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
                             overridePendingTransition(0,0);
+                            editor.putString("userName",userName);
                             editor.putInt("loggedIN",id);
                             editor.commit();
 

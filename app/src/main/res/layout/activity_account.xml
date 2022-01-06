@@ -23,7 +23,7 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="410dp"
-        android:layout_height="553dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -34,7 +34,7 @@
 
         <RelativeLayout
             android:layout_width="395dp"
-            android:layout_height="1000dp"
+            android:layout_height="1200dp"
             android:layout_gravity="center"
             android:layout_marginTop="150dp"
 
@@ -89,8 +89,8 @@
                     app:civ_border_width="2dp" />
 
                 <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="69dp"
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
                     android:layout_height="21dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
@@ -122,14 +122,14 @@
 
             <RelativeLayout
                 android:layout_width="300dp"
-                android:layout_height="200dp"
+                android:layout_height="375dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_gravity="center"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="435dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="14dp"
                 android:background="@drawable/account_element">
 
 
@@ -172,6 +172,17 @@
                     android:layout_marginEnd="289dp"
                     android:text="Age" />
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ageInput"
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/textView21"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="27dp"
+                    android:layout_marginEnd="258dp" />
+
                 <TextView
                     android:id="@+id/textView22"
                     android:layout_width="49dp"
@@ -183,6 +194,17 @@
                     android:layout_marginTop="47dp"
                     android:layout_marginEnd="161dp"
                     android:text="Weight" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/weightInput"
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/textView22"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="137dp"
+                    android:layout_marginTop="27dp"
+                    android:layout_marginEnd="138dp" />
 
                 <TextView
                     android:id="@+id/textView23"
@@ -196,6 +218,16 @@
                     android:layout_marginEnd="48dp"
                     android:text="Height" />
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/heightInput"
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/textView23"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="39dp"
+                    android:layout_marginTop="27dp"
+                    android:layout_marginEnd="17dp" />
+
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="wrap_content"
@@ -207,9 +239,78 @@
                     android:layout_marginStart="312dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="29dp"
-                    android:layout_marginBottom="161dp"
+                    android:layout_marginBottom="361dp"
                     app:srcCompat="@drawable/ic_baseline_settings_24" />
 
+                <TextView
+                    android:id="@+id/activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ageInput"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="39dp"
+                    android:layout_marginTop="40dp"
+                    android:text="Activity" />
+
+                <TextView
+                    android:id="@+id/goal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/weightInput"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="168dp"
+                    android:text="Goal" />
+
+                <TextView
+                    android:id="@+id/gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/heightInput"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="39dp"
+                    android:text="Gender" />
+
+                <Spinner
+                    android:id="@+id/Activityspinner"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/activity"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="27dp" />
+
+                <Spinner
+                    android:id="@+id/Goalspinner"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/goal"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginTop="27dp"
+                    android:layout_marginEnd="130dp" />
+
+                <Spinner
+                    android:id="@+id/Genderspinner"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gender"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="27dp"
+                    android:layout_marginEnd="17dp" />
+
+                <Button
+                    android:id="@+id/acceptButton"
+                    android:layout_width="95dp"
+                    android:layout_height="60dp"
+                    android:layout_below="@+id/Goalspinner"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="140dp"
+                    android:layout_marginTop="40dp"
+                    android:text="Accept"
+                    android:textSize="10dp" />
 
             </RelativeLayout>
 
@@ -221,7 +322,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_gravity="center"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="647dp"
+                android:layout_marginTop="825dp"
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/account_element">
 
