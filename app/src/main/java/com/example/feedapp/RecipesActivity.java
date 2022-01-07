@@ -1,5 +1,6 @@
 package com.example.feedapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -14,18 +15,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.feedapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.NameValuePair;
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.message.BasicNameValuePair;
@@ -35,7 +38,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -43,7 +45,8 @@ public class RecipesActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    private static final String setMealHistory = "http://192.168.100.9/android/getRecipes.php";
+    private static final String getRecipes = "http://192.168.100.9/android/getRecipes.php";
+    private static final String addRecipToMeals = "http://192.168.100.9/android/addToMealReceipt.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_RESPONSEARRAY = "responseArray";
     private JSONParser jsonParser = new JSONParser();
@@ -64,6 +67,8 @@ public class RecipesActivity extends AppCompatActivity {
     private TextView recipeName;
     private TextView recipeDescription;
     private Spinner mealsSpinner;
+    private Spinner multiplayerInput;
+    private Button acceptButton;
 
     public String id_readymeals;
     public String name = "";
@@ -210,9 +215,9 @@ public class RecipesActivity extends AppCompatActivity {
 
         recipeName = container.findViewById(R.id.RecipeNameTextview);
         recipeDescription = container.findViewById(R.id.RecipeDescTextView);
+        acceptButton = container.findViewById(R.id.acceptButton);
 
         recipeName.setText(name);
-        System.out.println(description);
         recipeDescription.setText(description);
 
         mealsSpinner = container.findViewById(R.id.mealsspinner);
@@ -220,7 +225,32 @@ public class RecipesActivity extends AppCompatActivity {
         activityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mealsSpinner.setAdapter(activityAdapter);
 
+        multiplayerInput = container.findViewById(R.id.multiplayer);
+        ArrayAdapter<CharSequence> multiAdapter = ArrayAdapter.createFromResource(RecipesActivity.this,R.array.multi, android.R.layout.simple_spinner_item);
+        multiAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        multiplayerInput.setAdapter(multiAdapter);
         popupWindow.showAsDropDown(recipe1, Gravity.CENTER,0,0);
+
+        if (recipeToShow == 1){
+            popupWindow.showAsDropDown(recipe1, Gravity.CENTER,0,0);
+        }else if (recipeToShow == 2){
+            popupWindow.showAsDropDown(recipe2, Gravity.CENTER,0,0);
+        }else if (recipeToShow == 3){
+            popupWindow.showAsDropDown(recipe3, Gravity.CENTER,0,0);
+        }else if (recipeToShow == 4){
+            popupWindow.showAsDropDown(recipe4, Gravity.CENTER,0,0);
+        }else if (recipeToShow == 5){
+            popupWindow.showAsDropDown(recipe5, Gravity.CENTER,0,0);
+        }else if (recipeToShow == 6){
+            popupWindow.showAsDropDown(recipe5, Gravity.CENTER,0,0);
+        }
+
+        acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new addToMeal().execute();
+            }
+        });
     }
 
     class loadRecipe extends AsyncTask<String, String, String>{
@@ -234,9 +264,8 @@ public class RecipesActivity extends AppCompatActivity {
                     List<NameValuePair> params = new ArrayList<>();
                     params.add(new BasicNameValuePair("id_readymeals", String.valueOf(recipeToShow)));
 
-                    JSONObject json = jsonParser.makeHttpRequest(setMealHistory, "POST", params);
-                    System.out.println(recipeToShow);
-                    Log.d("main", json.toString());
+                    JSONObject json = jsonParser.makeHttpRequest(getRecipes, "POST", params);
+                    //Log.d("main", json.toString());
 
                     success = json.getInt(TAG_SUCCESS);
 
@@ -253,6 +282,26 @@ public class RecipesActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            return null;
+        }
+    }
+
+    class addToMeal extends AsyncTask<String, String, String>{
+        @Override
+        protected String doInBackground(String... strings) {
+            String multiplayerString = multiplayerInput.getSelectedItem().toString();
+            String mealSpinnerString = mealsSpinner.getSelectedItem().toString();
+            System.out.println(mealSpinnerString);
+            List<NameValuePair> params = new ArrayList<>();
+            params.add(new BasicNameValuePair("id_readymeals", String.valueOf(recipeToShow)));
+            params.add(new BasicNameValuePair("multiplayer", multiplayerString));
+            params.add(new BasicNameValuePair("mealtype", mealSpinnerString));
+            params.add(new BasicNameValuePair("id_user", String.valueOf(loggedInID)));
+
+            JSONObject json = jsonParser.makeHttpRequest(addRecipToMeals, "POST", params);
+
+            //Log.d("main", json.toString());
+
             return null;
         }
     }

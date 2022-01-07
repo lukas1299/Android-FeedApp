@@ -46,8 +46,18 @@
         <item>Breakfast</item>
         <item>Breakfast II</item>
         <item>Lunch</item>
-        <item>Diner</item>
+        <item>Dinner</item>
         <item>Snack</item>
-        <item>Super</item>
+        <item>Supper</item>
     </string-array>
+
+    <string-array name="multi">
+        <item>1</item>
+        <item>1.5</item>
+        <item>2</item>
+        <item>2.5</item>
+        <item>3</item>
+        <item>3.5</item>
+    </string-array>
+
 </resources>

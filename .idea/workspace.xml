@@ -14,11 +14,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ace06-09e6-48ec-ad82-987f5618e9c5" name="Default Changelist" comment="body information changes now posible">
+    <list default="true" id="ec8ace06-09e6-48ec-ad82-987f5618e9c5" name="Default Changelist" comment="RecipesActivity">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/RecipesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/RecipesActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/recipe_details_popup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/recipe_details_popup.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -244,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641498121875</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="RecipesActivity">
+      <created>1641503183157</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1641503183157</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -268,6 +276,7 @@
     <MESSAGE value="passing arguments beetwen scenes" />
     <MESSAGE value="popup window with products history" />
     <MESSAGE value="body information changes now posible" />
-    <option name="LAST_COMMIT_MESSAGE" value="body information changes now posible" />
+    <MESSAGE value="RecipesActivity" />
+    <option name="LAST_COMMIT_MESSAGE" value="RecipesActivity" />
   </component>
 </project>

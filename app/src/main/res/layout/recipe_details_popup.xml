@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".MainActivity">
+    tools:context=".RecipesActivity">
 
 
     <TextView
@@ -37,8 +37,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RecipeDescTextView" />
 
-    <EditText
-        android:id="@+id/weightInput"
+    <Spinner
+        android:id="@+id/multiplayer"
         android:layout_width="90dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"

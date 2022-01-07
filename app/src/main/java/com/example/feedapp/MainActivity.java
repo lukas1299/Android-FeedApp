@@ -401,6 +401,7 @@ public class MainActivity extends AppCompatActivity {
         currentDay = new Date();
         correctDate = new Date();
         properDayName(0, currentDay.getTime());
+
         //TODO:problem z wydajnoscia
         forwardToList1 = findViewById(R.id.imageViewList1);
         forwardToList1.setOnClickListener(new View.OnClickListener() {
@@ -666,8 +667,6 @@ public class MainActivity extends AppCompatActivity {
             snackKcal.setText(String.valueOf(String.format("%.0f", mealsKcal[4][0])) + " kcal");
             supperKcal.setText(String.valueOf(String.format("%.0f", mealsKcal[5][0])) + " kcal");
 
-
-
             return null;
         }
     }
@@ -712,7 +711,6 @@ public class MainActivity extends AppCompatActivity {
                     for (Double[] doubles : mealsKcal) {
                         carbohydratesSummary += doubles[3];
                     }
-
                     proteingBar.setProgress((int) proteinSummary);
                     fatBar.setProgress((int) fatSummary);
                     carbohydratesBar.setProgress((int) carbohydratesSummary);
