@@ -24,11 +24,11 @@
     <string name="Fat">Fat</string>
 
     <string-array name="activitySpinnerEntities">
-        <item>Brak aktywności, praca siedząca</item>
-        <item>Niska aktywność (praca siedząca i 1-2 treningi w tygodniu)</item>
-        <item>Średnia aktywność (praca siedząca i treningi 3-4 razy w tygodniu)</item>
-        <item>Wysoka aktywność (praca fizyczna i 3-4 treningi w tygodniu)</item>
-        <item>Bardzo wysoka aktywność (zawodowi sportowcy, osoby codziennie trenujące)</item>
+        <item>Brak aktywnosci, praca siedzaca</item>
+        <item>Niska aktywnosc (praca siedzaca i 1-2 treningi w tygodniu)</item>
+        <item>Srednia aktywnosc (praca siedzaca i treningi 3-4 razy w tygodniu)</item>
+        <item>Wysoka aktywnosc (praca fizyczna i 3-4 treningi w tygodniu)</item>
+        <item>Bardzo wysoka aktywnosc (zawodowi sportowcy, osoby codziennie trenujace)</item>
     </string-array>
 
     <string-array name="goalSpinnerEntities">
@@ -38,7 +38,7 @@
     </string-array>
 
     <string-array name="genderSpinnerEntities">
-        <item>Mężczyzna</item>
+        <item>Mezczyzna</item>
         <item>Kobieta</item>
     </string-array>
 

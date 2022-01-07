@@ -151,7 +151,7 @@ public class AccountActivity extends AppCompatActivity {
             String genderSpinnerString = genderSpinner.getSelectedItem().toString();
             String activitySpinnerString = activitySpinner.getSelectedItem().toString();
             String goalSpinnerString = goalSpinner.getSelectedItem().toString();
-//TODO:xd
+
             if(!ageString.equals("") && !weightString.equals("") && !heightString.equals("")){
                 System.out.println(ageString + " " + weightString + " " + heightString + " " + genderSpinnerString + " " + activitySpinnerString + " " + goalSpinnerString + " " + loggedIn);
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
