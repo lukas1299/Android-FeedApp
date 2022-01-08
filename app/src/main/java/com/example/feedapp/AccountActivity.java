@@ -1,11 +1,14 @@
 package com.example.feedapp;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,6 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.text.Html;
 import android.util.Log;
@@ -35,7 +40,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class AccountActivity extends AppCompatActivity {
@@ -44,11 +51,22 @@ public class AccountActivity extends AppCompatActivity {
     private ImageView logOut;
 
     private static final String setUserDemandURL = "http://192.168.100.9/android/setUserDemand.php";
-    JSONParser jsonParser = new JSONParser();
+    private static final String achivemenstInfo = "http://192.168.100.9/android/getAchivementsInfo.php";
+    private static final String TAG_RESPONSEARRAY = "responseArray";
+    private static final String TAG_SUCCESS = "success";
+    private JSONParser jsonParser = new JSONParser();
+    private JSONArray jsonProductArray;
 
     private TextInputEditText ageInput;
     private TextInputEditText weightInput;
     private TextInputEditText heightInput;
+
+    private ImageView oneDayStreak;
+    private ImageView twoDaysStreak;
+    private ImageView threeDaysStreak;
+    private TextView oneDayText;
+    private TextView twoDayText;
+    private TextView threeDayText;
 
     private TextView userName;
 
@@ -60,13 +78,19 @@ public class AccountActivity extends AppCompatActivity {
 
     private int loggedIn;
     private String userNameString;
+    private String oneDayStreakRespond;
+    private String towDaysStreakRespond;
+    private String threeDaysStreakRespond;
+    private String CHANNEL_ID = "uniqueID";
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("lifeCycle",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        sharedPreferences = getSharedPreferences("lifeCycle",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         loggedIn = sharedPreferences.getInt("loggedIN",0);
         userNameString = sharedPreferences.getString("userName","Mona lisa");
         ActionBar actionBar = getSupportActionBar();
@@ -138,6 +162,117 @@ public class AccountActivity extends AppCompatActivity {
         userName = findViewById(R.id.userName);
         userName.setText(userNameString);
 
+        oneDayStreak = findViewById(R.id.oneDayStreak);
+        twoDaysStreak = findViewById(R.id.twoDayStreak);
+        threeDaysStreak = findViewById(R.id.threeDayStreak);
+        oneDayText = findViewById(R.id.oneDayText);
+        twoDayText = findViewById(R.id.twoDayText);
+        threeDayText = findViewById(R.id.threeDayText);
+
+        oneDayStreak.setVisibility(View.INVISIBLE);
+        twoDaysStreak.setVisibility(View.INVISIBLE);
+        threeDaysStreak.setVisibility(View.INVISIBLE);
+        oneDayText.setVisibility(View.INVISIBLE);
+        twoDayText.setVisibility(View.INVISIBLE);
+        threeDayText.setVisibility(View.INVISIBLE);
+
+
+        createNotificationChannel();
+        try {
+            achivementHandling();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        editor.putInt("notificationPushed",1);
+        editor.commit();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        editor.putInt("notificationPushed",0);
+        editor.commit();
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "channel name";
+            String description = "channel desc";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    public void achivementHandling() throws ExecutionException, InterruptedException {
+        new getAchivementsInfo().execute().get();
+        if(sharedPreferences.getInt("notificationPushed",0) == 0) {
+
+            if (Integer.parseInt(oneDayStreakRespond) == 1) {
+                NotificationCompat.Builder oneDayNotifi = new NotificationCompat.Builder(this, CHANNEL_ID)
+                        .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+                        .setContentTitle("FeedApp")
+                        .setContentText("Hurra... You did one day streak of your meals history")
+                        /*.setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText("Much longer text that cannot fit one line..."))*/
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                notificationManager.notify(100, oneDayNotifi.build());
+            }
+
+            if (Integer.parseInt(towDaysStreakRespond) == 1) {
+
+                NotificationCompat.Builder twoDayNotifi = new NotificationCompat.Builder(this, CHANNEL_ID)
+                        .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+                        .setContentTitle("FeedApp")
+                        .setContentText("Hurra... You did two days streak of your meals history")
+                        /*.setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText("Much longer text that cannot fit one line..."))*/
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                notificationManager.notify(110, twoDayNotifi.build());
+            }
+
+            if (Integer.parseInt(threeDaysStreakRespond) == 1) {
+
+                NotificationCompat.Builder threeDayNotifi = new NotificationCompat.Builder(this, CHANNEL_ID)
+                        .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+                        .setContentTitle("FeedApp")
+                        .setContentText("Hurra... You did three days streak of your meals history. Congratz")
+                        /*.setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText("Much longer text that cannot fit one line..."))*/
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+                notificationManager.notify(120, threeDayNotifi.build());
+            }
+        }
+
+        if (Integer.parseInt(oneDayStreakRespond) == 1) {
+            oneDayStreak.setVisibility(View.VISIBLE);
+            oneDayText.setVisibility(View.VISIBLE);
+        }
+
+        if (Integer.parseInt(towDaysStreakRespond) == 1) {
+            twoDaysStreak.setVisibility(View.VISIBLE);
+            twoDayText.setVisibility(View.VISIBLE);
+        }
+
+        if (Integer.parseInt(threeDaysStreakRespond) == 1) {
+            threeDaysStreak.setVisibility(View.VISIBLE);
+            threeDayText.setVisibility(View.VISIBLE);
+        }
+
     }
 
     class sendBodyInformation extends AsyncTask<String, String, String>{
@@ -181,6 +316,38 @@ public class AccountActivity extends AppCompatActivity {
                 Toast toastIncorrectLoginOrPassword = Toast.makeText(getApplicationContext(), "Fill in all fields", Toast.LENGTH_SHORT);
                 toastIncorrectLoginOrPassword.show();
             }
+        }
+    }
+
+    class getAchivementsInfo extends AsyncTask<String,String,String>{
+        int success;
+        @Override
+        protected String doInBackground(String... strings) {
+
+            try {
+                List<NameValuePair> params = new ArrayList<>();
+                params.add(new BasicNameValuePair("id_user", String.valueOf(loggedIn)));
+
+                JSONObject json = jsonParser.makeHttpRequest(achivemenstInfo, "POST", params);
+                Log.d("main", json.toString());
+
+                success = json.getInt(TAG_SUCCESS);
+
+                if (success == 1) {//found
+
+                    jsonProductArray = json.getJSONArray(TAG_RESPONSEARRAY);
+                    JSONObject jsonTemp = jsonProductArray.getJSONObject(0);
+
+                    oneDayStreakRespond = jsonTemp.getString("oneDay");
+                    towDaysStreakRespond = jsonTemp.getString("twoDays");
+                    threeDaysStreakRespond = jsonTemp.getString("threeDays");
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
         }
     }
 }

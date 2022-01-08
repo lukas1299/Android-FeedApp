@@ -23,7 +23,7 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="410dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -34,7 +34,7 @@
 
         <RelativeLayout
             android:layout_width="395dp"
-            android:layout_height="1200dp"
+            android:layout_height="1050dp"
             android:layout_gravity="center"
             android:layout_marginTop="150dp"
 
@@ -119,6 +119,7 @@
 
 
             </RelativeLayout>
+
 
             <RelativeLayout
                 android:layout_width="300dp"
@@ -316,12 +317,13 @@
 
             <RelativeLayout
                 android:layout_width="300dp"
-                android:layout_height="300dp"
+                android:layout_height="200dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_gravity="center"
                 android:layout_marginStart="15dp"
+
                 android:layout_marginTop="825dp"
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/account_element">
@@ -338,11 +340,79 @@
                     android:layout_marginStart="130dp"
                     android:layout_marginTop="14dp"
                     android:layout_marginEnd="125dp"
-                    android:layout_marginBottom="259dp"
+                    android:layout_marginBottom="150dp"
                     android:text="Achivments"
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/oneDayStreak"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/ic_onedaystreak"
+                    android:backgroundTint="@color/purple_500" />
+
+                <ImageView
+                    android:id="@+id/twoDayStreak"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_toEndOf="@+id/oneDayStreak"
+                    android:background="@drawable/ic_twodaystreak"
+                    android:backgroundTint="@color/purple_500" />
+
+                <ImageView
+                    android:id="@+id/threeDayStreak"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="50dp"
+                    android:background="@drawable/ic_threedaystreak"
+                    android:backgroundTint="@color/purple_500" />
+
+                <TextView
+                    android:id="@+id/oneDayText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/oneDayStreak"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="15dp"
+                    android:hint="Day streak"
+                    android:textSize="15dp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/twoDayText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/oneDayStreak"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="145dp"
+                    android:layout_marginTop="15dp"
+                    android:hint="Days streak"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/threeDayText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/oneDayStreak"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="265dp"
+                    android:layout_marginTop="15dp"
+                    android:hint="Days streak"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+
             </RelativeLayout>
 
 
