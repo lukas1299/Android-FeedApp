@@ -33,7 +33,7 @@
         tools:ignore="SpeakableTextPresentCheck">
 
         <RelativeLayout
-            android:layout_width="395dp"
+            android:layout_width="match_parent"
             android:layout_height="1050dp"
             android:layout_gravity="center"
             android:layout_marginTop="150dp"
@@ -96,11 +96,12 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginTop="150dp"
-                    android:layout_marginBottom="29dp"
+                    android:layout_marginTop="105dp"
+                    android:layout_marginBottom="70dp"
                     android:gravity="center"
                     android:text="Mona Lisa"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -115,6 +116,16 @@
                     android:layout_marginEnd="138dp"
                     android:layout_marginBottom="73dp"
                     app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
+
+                <TextView
+                    android:id="@+id/userInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="40dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
 
 
             </RelativeLayout>
@@ -151,10 +162,9 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginStart="141dp"
                     android:layout_marginTop="14dp"
-                    android:layout_marginEnd="142dp"
-                    android:layout_marginBottom="162dp"
+                    android:layout_marginBottom="335dp"
+                    android:gravity="center"
                     android:text="About me"
                     android:textColor="@color/black"
                     android:textSize="18dp"
@@ -167,66 +177,67 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginStart="47dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="47dp"
-                    android:layout_marginEnd="289dp"
+                    android:layout_marginEnd="250dp"
                     android:text="Age" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ageInput"
                     android:layout_width="90dp"
-                    android:layout_height="50dp"
+                    android:layout_height="45dp"
                     android:layout_below="@+id/textView21"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="17dp"
-                    android:layout_marginTop="27dp"
-                    android:layout_marginEnd="258dp" />
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="258dp"
+                    android:inputType="number"/>
 
                 <TextView
                     android:id="@+id/textView22"
-                    android:layout_width="49dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginStart="155dp"
                     android:layout_marginTop="47dp"
-                    android:layout_marginEnd="161dp"
+                    android:gravity="center"
                     android:text="Weight" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/weightInput"
                     android:layout_width="90dp"
-                    android:layout_height="50dp"
+                    android:layout_height="45dp"
                     android:layout_below="@+id/textView22"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="137dp"
-                    android:layout_marginTop="27dp"
-                    android:layout_marginEnd="138dp" />
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="138dp"
+                    android:gravity="center"
+                    android:inputType="number"/>
 
                 <TextView
                     android:id="@+id/textView23"
                     android:layout_width="46dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginStart="271dp"
                     android:layout_marginTop="47dp"
-                    android:layout_marginEnd="48dp"
+                    android:layout_marginEnd="25dp"
                     android:text="Height" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/heightInput"
-                    android:layout_width="90dp"
-                    android:layout_height="50dp"
+                    android:layout_width="60dp"
+                    android:layout_height="45dp"
                     android:layout_below="@+id/textView23"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="39dp"
-                    android:layout_marginTop="27dp"
-                    android:layout_marginEnd="17dp" />
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="17dp"
+                    android:inputType="number"/>
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -248,7 +259,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ageInput"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="39dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="40dp"
                     android:text="Activity" />
 
@@ -257,9 +268,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/weightInput"
-                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="40dp"
-                    android:layout_marginEnd="168dp"
+                    android:gravity="center"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:text="Goal" />
 
                 <TextView
@@ -269,7 +281,7 @@
                     android:layout_below="@+id/heightInput"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="40dp"
-                    android:layout_marginEnd="39dp"
+                    android:layout_marginEnd="25dp"
                     android:text="Gender" />
 
                 <Spinner
@@ -290,7 +302,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="130dp"
                     android:layout_marginTop="27dp"
-                    android:layout_marginEnd="130dp" />
+                    android:layout_marginEnd="100dp" />
 
                 <Spinner
                     android:id="@+id/Genderspinner"
@@ -299,16 +311,17 @@
                     android:layout_below="@+id/gender"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="27dp"
-                    android:layout_marginEnd="17dp" />
+                    android:layout_marginEnd="1dp" />
 
                 <Button
                     android:id="@+id/acceptButton"
                     android:layout_width="95dp"
                     android:layout_height="60dp"
                     android:layout_below="@+id/Goalspinner"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="140dp"
                     android:layout_marginTop="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
                     android:text="Accept"
                     android:textSize="10dp" />
 
@@ -336,10 +349,9 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginStart="130dp"
                     android:layout_marginTop="14dp"
-                    android:layout_marginEnd="125dp"
                     android:layout_marginBottom="150dp"
+                    android:gravity="center"
                     android:text="Achivments"
                     android:textColor="@color/black"
                     android:textSize="18dp"
@@ -350,7 +362,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="50dp"
+                    android:layout_marginStart="45dp"
                     android:layout_marginTop="60dp"
                     android:background="@drawable/ic_onedaystreak"
                     android:backgroundTint="@color/purple_500" />
@@ -369,9 +381,9 @@
                     android:id="@+id/threeDayStreak"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="70dp"
                     android:layout_marginTop="60dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_toEndOf="@+id/twoDayStreak"
                     android:background="@drawable/ic_threedaystreak"
                     android:backgroundTint="@color/purple_500" />
 
@@ -406,7 +418,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/oneDayStreak"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="265dp"
+                    android:layout_marginStart="240dp"
                     android:layout_marginTop="15dp"
                     android:hint="Days streak"
                     android:textColor="@color/black"

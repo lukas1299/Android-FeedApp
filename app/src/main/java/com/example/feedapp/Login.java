@@ -35,12 +35,12 @@ public class Login extends AppCompatActivity {
     TextView test;
 
     JSONParser jsonParser = new JSONParser();
-
-    private static final String loginURL = "http://192.168.100.9/android/login.php";
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_RESPONSEARRAY = "responseArray";
-    private static final String TAG_USERNAME = "username";
-    private static final String TAG_PASSWORD = "password";
+    public static final String IPaddres = "http://192.168.0.101/android/";
+    private static final String loginURL = IPaddres + "login.php";
+    public static final String TAG_SUCCESS = "success";
+    public static final String TAG_RESPONSEARRAY = "responseArray";
+    public static final String TAG_USERNAME = "username";
+    public static final String TAG_PASSWORD = "password";
 
     int showMessage;
 
@@ -113,9 +113,11 @@ public class Login extends AppCompatActivity {
 
                             int id = responseObject.getInt("loggedIn");
                             String userName = responseObject.getString("userName");
+                            String info = "Age: " + responseObject.getString("age") + " Height: " + responseObject.getString("height") + " Weight: " + responseObject.getString("weight");
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
                             overridePendingTransition(0,0);
                             editor.putString("userName",userName);
+                            editor.putString("info",info);
                             editor.putInt("loggedIN",id);
                             editor.commit();
 

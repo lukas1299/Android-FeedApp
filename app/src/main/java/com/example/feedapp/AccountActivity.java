@@ -1,5 +1,9 @@
 package com.example.feedapp;
 
+import static com.example.feedapp.Login.IPaddres;
+import static com.example.feedapp.Login.TAG_RESPONSEARRAY;
+import static com.example.feedapp.Login.TAG_SUCCESS;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -50,10 +54,8 @@ public class AccountActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private ImageView logOut;
 
-    private static final String setUserDemandURL = "http://192.168.100.9/android/setUserDemand.php";
-    private static final String achivemenstInfo = "http://192.168.100.9/android/getAchivementsInfo.php";
-    private static final String TAG_RESPONSEARRAY = "responseArray";
-    private static final String TAG_SUCCESS = "success";
+    private static final String setUserDemandURL = IPaddres + "setUserDemand.php";
+    private static final String achivemenstInfo = IPaddres + "getAchivementsInfo.php";
     private JSONParser jsonParser = new JSONParser();
     private JSONArray jsonProductArray;
 
@@ -67,6 +69,7 @@ public class AccountActivity extends AppCompatActivity {
     private TextView oneDayText;
     private TextView twoDayText;
     private TextView threeDayText;
+    private TextView userInfo;
 
     private TextView userName;
 
@@ -78,6 +81,7 @@ public class AccountActivity extends AppCompatActivity {
 
     private int loggedIn;
     private String userNameString;
+    private String info;
     private String oneDayStreakRespond;
     private String towDaysStreakRespond;
     private String threeDaysStreakRespond;
@@ -93,6 +97,7 @@ public class AccountActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
         loggedIn = sharedPreferences.getInt("loggedIN",0);
         userNameString = sharedPreferences.getString("userName","Mona lisa");
+        info = sharedPreferences.getString("info","");
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
         actionBar.setTitle(Html.fromHtml("<font color='#00000'>Account</font>"));
@@ -176,6 +181,8 @@ public class AccountActivity extends AppCompatActivity {
         twoDayText.setVisibility(View.INVISIBLE);
         threeDayText.setVisibility(View.INVISIBLE);
 
+        userInfo = findViewById(R.id.userInfo);
+        userInfo.setText(info);
 
         createNotificationChannel();
         try {
@@ -197,16 +204,13 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "channel name";
             String description = "channel desc";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
@@ -221,8 +225,6 @@ public class AccountActivity extends AppCompatActivity {
                         .setSmallIcon(R.drawable.ic_baseline_notifications_24)
                         .setContentTitle("FeedApp")
                         .setContentText("Hurra... You did one day streak of your meals history")
-                        /*.setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText("Much longer text that cannot fit one line..."))*/
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
@@ -235,8 +237,6 @@ public class AccountActivity extends AppCompatActivity {
                         .setSmallIcon(R.drawable.ic_baseline_notifications_24)
                         .setContentTitle("FeedApp")
                         .setContentText("Hurra... You did two days streak of your meals history")
-                        /*.setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText("Much longer text that cannot fit one line..."))*/
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
@@ -249,8 +249,6 @@ public class AccountActivity extends AppCompatActivity {
                         .setSmallIcon(R.drawable.ic_baseline_notifications_24)
                         .setContentTitle("FeedApp")
                         .setContentText("Hurra... You did three days streak of your meals history. Congratz")
-                        /*.setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText("Much longer text that cannot fit one line..."))*/
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);

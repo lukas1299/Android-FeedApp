@@ -1,6 +1,9 @@
 package com.example.feedapp;
 
-import android.content.Context;
+import static com.example.feedapp.Login.IPaddres;
+import static com.example.feedapp.Login.TAG_RESPONSEARRAY;
+import static com.example.feedapp.Login.TAG_SUCCESS;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -8,7 +11,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,13 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,10 +45,8 @@ public class RecipesActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    private static final String getRecipes = "http://192.168.100.9/android/getRecipes.php";
-    private static final String addRecipToMeals = "http://192.168.100.9/android/addToMealReceipt.php";
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_RESPONSEARRAY = "responseArray";
+    private static final String getRecipes = IPaddres + "getRecipes.php";
+    private static final String addRecipToMeals = IPaddres + "addToMealReceipt.php";
     private JSONParser jsonParser = new JSONParser();
     private JSONArray jsonProductArray;
 
@@ -60,7 +58,7 @@ public class RecipesActivity extends AppCompatActivity {
     private RelativeLayout recipe6;
 
     int  loggedInID;
-    int recipeToShow;
+    int recipeToShow = 0;
 
     private LayoutInflater layoutInflater;
     private PopupWindow popupWindow;
@@ -73,6 +71,9 @@ public class RecipesActivity extends AppCompatActivity {
     public String id_readymeals;
     public String name = "";
     public String description = "";
+    public String Recipecalories = "0";
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -203,6 +204,7 @@ public class RecipesActivity extends AppCompatActivity {
                 recipePopup();
             }
         });
+
     }
 
     public void recipePopup(){
@@ -218,7 +220,7 @@ public class RecipesActivity extends AppCompatActivity {
         acceptButton = container.findViewById(R.id.acceptButton);
 
         recipeName.setText(name);
-        recipeDescription.setText(description);
+        recipeDescription.setText(description + "\n" + Recipecalories + " kcal");
 
         mealsSpinner = container.findViewById(R.id.mealsspinner);
         ArrayAdapter<CharSequence> activityAdapter = ArrayAdapter.createFromResource(RecipesActivity.this,R.array.meals, android.R.layout.simple_spinner_item);
@@ -229,7 +231,6 @@ public class RecipesActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> multiAdapter = ArrayAdapter.createFromResource(RecipesActivity.this,R.array.multi, android.R.layout.simple_spinner_item);
         multiAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         multiplayerInput.setAdapter(multiAdapter);
-        popupWindow.showAsDropDown(recipe1, Gravity.CENTER,0,0);
 
         if (recipeToShow == 1){
             popupWindow.showAsDropDown(recipe1, Gravity.CENTER,0,0);
@@ -264,8 +265,9 @@ public class RecipesActivity extends AppCompatActivity {
                     List<NameValuePair> params = new ArrayList<>();
                     params.add(new BasicNameValuePair("id_readymeals", String.valueOf(recipeToShow)));
 
+                    params.add(new BasicNameValuePair("findCalories", "1"));
+
                     JSONObject json = jsonParser.makeHttpRequest(getRecipes, "POST", params);
-                    //Log.d("main", json.toString());
 
                     success = json.getInt(TAG_SUCCESS);
 
@@ -277,8 +279,11 @@ public class RecipesActivity extends AppCompatActivity {
                         id_readymeals = jsonTemp.getString("id_readymeals");
                         name = jsonTemp.getString("nazwa");
                         description =  jsonTemp.getString("opis");
+                        Recipecalories = jsonTemp.getString("calories1");
 
                     }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -1,6 +1,10 @@
 package com.example.feedapp;
 
 
+import static com.example.feedapp.Login.IPaddres;
+import static com.example.feedapp.Login.TAG_RESPONSEARRAY;
+import static com.example.feedapp.Login.TAG_SUCCESS;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -46,11 +50,9 @@ public class ProductList extends ListActivity {
     boolean emptyProductName;
 
     private ArrayList<HashMap<String,String>> productList;
-
-    private static final String getProductListURL = "http://192.168.100.9/android/productSearch.php";
-    private static final String setMealHistory = "http://192.168.100.9/android/mealHistory.php";
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_RESPONSEARRAY = "responseArray";
+    //TODO:usuwanie z historii,
+    private static final String getProductListURL = IPaddres + "productSearch.php";
+    private static final String setMealHistory = IPaddres + "mealHistory.php";
     private static final String TAG_ID= "id";
     private static final String TAG_NAME = "name";
     private static final String TAG_CALORIES = "calories";
@@ -97,7 +99,9 @@ public class ProductList extends ListActivity {
                 if (!temp.equals("")) {
                     new productSearching().execute();
                 }else{
-
+                    productList = new ArrayList<>();
+                    ListAdapter adapter = new SimpleAdapter(ProductList.this, productList, R.layout.item_list, new String[]{TAG_ID,TAG_NAME, TAG_CALORIES}, new int[]{R.id.id ,R.id.nameInfo, R.id.caloriesInfo});
+                    setListAdapter(adapter);
                 }
             }
         });
@@ -144,7 +148,6 @@ public class ProductList extends ListActivity {
     }
 
     class productSearching extends AsyncTask<String,String,String>{
-
         @Override
         protected String doInBackground(String... strings) {
             int success;
@@ -157,9 +160,6 @@ public class ProductList extends ListActivity {
                     params.add(new BasicNameValuePair(TAG_NAME, productName));
 
                     JSONObject json = jsonParser.makeHttpRequest(getProductListURL, "POST", params);
-
-                    //System.out.println(mealTime);
-                    //Log.d("main", json.toString());
 
                     success = json.getInt(TAG_SUCCESS);
 

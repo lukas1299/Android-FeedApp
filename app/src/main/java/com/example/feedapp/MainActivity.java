@@ -1,5 +1,9 @@
 package com.example.feedapp;
 
+import static com.example.feedapp.Login.IPaddres;
+import static com.example.feedapp.Login.TAG_RESPONSEARRAY;
+import static com.example.feedapp.Login.TAG_SUCCESS;
+
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -62,10 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    private static final String getMealHistory = "http://192.168.100.9/android/getMealHistory.php";
-    private static final String getUserDemand = "http://192.168.100.9/android/getUserDemand.php";
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_RESPONSEARRAY = "responseArray";
+    private static final String getMealHistory = IPaddres + "getMealHistory.php";
+    private static final String getUserDemand = IPaddres + "getUserDemand.php";
 
     private ImageView imageView1;
     private ImageView imageView2;
@@ -398,25 +400,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        currentDay = new Date();
+        currentDay = new Date();//zbugowane wyswietlanie historii
         correctDate = new Date();
         properDayName(0, currentDay.getTime());
 
-        //TODO:problem z wydajnoscia
         forwardToList1 = findViewById(R.id.imageViewList1);
         forwardToList1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
-                ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup,null);
+                if(!productListBreakfast.isEmpty()) {
+                    layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup, null);
 
-                popupWindow = new PopupWindow(container,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
-                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                listView = container.findViewById(R.id.listview);
+                    popupWindow = new PopupWindow(container, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                    listView = container.findViewById(R.id.listview);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,productListBreakfast);
-                listView.setAdapter(adapter);
-                popupWindow.showAsDropDown(forwardToList1,Gravity.CENTER,0,0);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, productListBreakfast);
+                    listView.setAdapter(adapter);
+                    popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+                }
             }
         });
 
@@ -424,17 +427,18 @@ public class MainActivity extends AppCompatActivity {
         forwardToList2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!productListBreakfastII.isEmpty()) {
+                    layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup, null);
 
-                layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
-                ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup,null);
+                    popupWindow = new PopupWindow(container, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                    listView = container.findViewById(R.id.listview);
 
-                popupWindow = new PopupWindow(container,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
-                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                listView = container.findViewById(R.id.listview);
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,productListBreakfastII);
-                listView.setAdapter(adapter);
-                popupWindow.showAsDropDown(forwardToList2,Gravity.CENTER,0,0);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, productListBreakfastII);
+                    listView.setAdapter(adapter);
+                    popupWindow.showAsDropDown(forwardToList2, Gravity.CENTER, 0, 0);
+                }
             }
         });
 
@@ -442,17 +446,18 @@ public class MainActivity extends AppCompatActivity {
         forwardToList3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!productListLunch.isEmpty()) {
+                    layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup, null);
 
-                layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
-                ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup,null);
+                    popupWindow = new PopupWindow(container, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                    listView = container.findViewById(R.id.listview);
 
-                popupWindow = new PopupWindow(container,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
-                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                listView = container.findViewById(R.id.listview);
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,productListLunch);
-                listView.setAdapter(adapter);
-                popupWindow.showAsDropDown(forwardToList3,Gravity.CENTER,0,0);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, productListLunch);
+                    listView.setAdapter(adapter);
+                    popupWindow.showAsDropDown(forwardToList3, Gravity.CENTER, 0, 0);
+                }
             }
         });
 
@@ -460,17 +465,18 @@ public class MainActivity extends AppCompatActivity {
         forwardToList4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!productListDinner.isEmpty()) {
+                    layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup, null);
 
-                layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
-                ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup,null);
+                    popupWindow = new PopupWindow(container, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                    listView = container.findViewById(R.id.listview);
 
-                popupWindow = new PopupWindow(container,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
-                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                listView = container.findViewById(R.id.listview);
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,productListDinner);
-                listView.setAdapter(adapter);
-                popupWindow.showAsDropDown(forwardToList4,Gravity.CENTER,0,0);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, productListDinner);
+                    listView.setAdapter(adapter);
+                    popupWindow.showAsDropDown(forwardToList4, Gravity.CENTER, 0, 0);
+                }
             }
         });
 
@@ -478,17 +484,18 @@ public class MainActivity extends AppCompatActivity {
         forwardToList5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!productListSnack.isEmpty()) {
+                    layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup, null);
 
-                layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
-                ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup,null);
+                    popupWindow = new PopupWindow(container, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                    listView = container.findViewById(R.id.listview);
 
-                popupWindow = new PopupWindow(container,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
-                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                listView = container.findViewById(R.id.listview);
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,productListSnack);
-                listView.setAdapter(adapter);
-                popupWindow.showAsDropDown(forwardToList5,Gravity.CENTER,0,0);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, productListSnack);
+                    listView.setAdapter(adapter);
+                    popupWindow.showAsDropDown(forwardToList5, Gravity.CENTER, 0, 0);
+                }
             }
         });
 
@@ -496,17 +503,18 @@ public class MainActivity extends AppCompatActivity {
         forwardToList6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!productListSupper.isEmpty()) {
+                    layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
+                    ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup, null);
 
-                layoutInflater = (LayoutInflater) getApplication().getSystemService(LAYOUT_INFLATER_SERVICE);
-                ViewGroup container  = (ViewGroup) layoutInflater.inflate(R.layout.product_details_popup,null);
+                    popupWindow = new PopupWindow(container, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+                    popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                    listView = container.findViewById(R.id.listview);
 
-                popupWindow = new PopupWindow(container,LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT,true);
-                popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                listView = container.findViewById(R.id.listview);
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1,productListSupper);
-                listView.setAdapter(adapter);
-                popupWindow.showAsDropDown(forwardToList6,Gravity.CENTER,0,0);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, productListSupper);
+                    listView.setAdapter(adapter);
+                    popupWindow.showAsDropDown(forwardToList6, Gravity.CENTER, 0, 0);
+                }
             }
         });
     }
@@ -551,7 +559,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             new loadHistory().execute();
-            new loadDemand().execute();
+            if (kcalLimit == 0) new loadDemand().execute();
+            new setStats().execute();
 
         }else {//nastepne
 
@@ -580,7 +589,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             new loadHistory().execute();
-            new loadDemand().execute();
+            if (kcalLimit == 0) new loadDemand().execute();
+            new setStats().execute();
 
         }
     }
@@ -599,7 +609,7 @@ public class MainActivity extends AppCompatActivity {
                 params.add(new BasicNameValuePair("date", dateToSend));
                 JSONObject json = jsonParser.makeHttpRequest(getMealHistory, "POST", params);
 
-                //Log.d("main", json.toString());
+                Log.d("main", json.toString());
 
                 success = json.getInt(TAG_SUCCESS);
 
@@ -607,14 +617,16 @@ public class MainActivity extends AppCompatActivity {
                     for (int c = 0; c < mealsKcal[i].length; c++) mealsKcal[i][c] = 0.0;
                 }
 
+                productListBreakfast = new ArrayList<>();
+                productListBreakfastII = new ArrayList<>();
+                productListSupper = new ArrayList<>();
+                productListSnack = new ArrayList<>();
+                productListDinner = new ArrayList<>();
+                productListLunch = new ArrayList<>();
+
                 if (success == 1) {
                     responseArray = json.getJSONArray(TAG_RESPONSEARRAY);
-                    productListBreakfast = new ArrayList<>();
-                    productListBreakfastII = new ArrayList<>();
-                    productListSupper = new ArrayList<>();
-                    productListSnack = new ArrayList<>();
-                    productListDinner = new ArrayList<>();
-                    productListLunch = new ArrayList<>();
+
                     for (int i = 0; i < responseArray.length(); i++){
                        JSONObject jsonObject = responseArray.getJSONObject(i);
 
@@ -670,7 +682,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
-    //TODO:liczy zapotrzebowanie 2 razy, dlaczego
+    //TODO:dodawanie produktu
     class loadDemand extends AsyncTask<String, String, String>{
 
         @Override
@@ -681,7 +693,7 @@ public class MainActivity extends AppCompatActivity {
                 params.add(new BasicNameValuePair("id_user", String.valueOf(loggedInUser)));
                 JSONObject json = jsonParser.makeHttpRequest(getUserDemand, "POST", params);
 
-                //Log.d("main", json.toString());
+                Log.d("main", json.toString());
 
                 success = json.getInt(TAG_SUCCESS);
 
@@ -693,67 +705,74 @@ public class MainActivity extends AppCompatActivity {
                     proteinLimit = Integer.parseInt(jsonObject.getString("protein"));
                     carbohydratesLimit = Integer.parseInt(jsonObject.getString("carbohydrates"));
                     fatLimit = Integer.parseInt(jsonObject.getString("fat"));
-
-
-                    proteingBar.setMax(proteinLimit);
-                    fatBar.setMax(fatLimit);
-                    carbohydratesBar.setMax(carbohydratesLimit);
-
-                    double proteinSummary = 0;
-                    for (Double[] doubles : mealsKcal) {
-                        proteinSummary += doubles[1];
-                    }
-                    double fatSummary = 0;
-                    for (Double[] doubles : mealsKcal) {
-                        fatSummary += doubles[2];
-                    }
-                    double carbohydratesSummary = 0;
-                    for (Double[] doubles : mealsKcal) {
-                        carbohydratesSummary += doubles[3];
-                    }
-                    proteingBar.setProgress((int) proteinSummary);
-                    fatBar.setProgress((int) fatSummary);
-                    carbohydratesBar.setProgress((int) carbohydratesSummary);
-
-                    if (proteinSummary > proteinLimit * 0.5 && proteinSummary < proteinLimit * 0.9){
-                        proteingBar.getProgressDrawable().setColorFilter(
-                                Color.YELLOW, android.graphics.PorterDuff.Mode.SRC_IN);
-                    }else if(proteinSummary > proteinLimit * 0.9){
-                        proteingBar.getProgressDrawable().setColorFilter(
-                                Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
-                    }else {
-                        proteingBar.getProgressDrawable().setColorFilter(
-                                Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN);
-                    }
-
-                    if (fatSummary > fatLimit * 0.5 && fatSummary < fatLimit * 0.9){
-                        fatBar.getProgressDrawable().setColorFilter(
-                                Color.YELLOW, android.graphics.PorterDuff.Mode.SRC_IN);
-                    }else if(fatSummary > fatLimit * 0.9){
-                        fatBar.getProgressDrawable().setColorFilter(
-                                Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
-                    }else {
-                        fatBar.getProgressDrawable().setColorFilter(
-                                Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN);
-                    }
-
-                    if (carbohydratesSummary> carbohydratesLimit * 0.5 && carbohydratesSummary < carbohydratesLimit * 0.9){
-                        carbohydratesBar.getProgressDrawable().setColorFilter(
-                                Color.YELLOW, android.graphics.PorterDuff.Mode.SRC_IN);
-                    }else if(carbohydratesSummary > carbohydratesLimit * 0.9){
-                        carbohydratesBar.getProgressDrawable().setColorFilter(
-                                Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
-                    }else {
-                        carbohydratesBar.getProgressDrawable().setColorFilter(
-                                Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN);
-                    }
-
                     }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             return null;
         }
-    }//and stats
+    }
+
+    class setStats extends AsyncTask<String, String, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            proteingBar.setMax(proteinLimit);
+            fatBar.setMax(fatLimit);
+            carbohydratesBar.setMax(carbohydratesLimit);
+
+            double proteinSummary = 0;
+            for (Double[] doubles : mealsKcal) {
+                proteinSummary += doubles[1];
+            }
+            double fatSummary = 0;
+            for (Double[] doubles : mealsKcal) {
+                fatSummary += doubles[2];
+            }
+            double carbohydratesSummary = 0;
+            for (Double[] doubles : mealsKcal) {
+                carbohydratesSummary += doubles[3];
+            }
+            proteingBar.setProgress((int) proteinSummary);
+            fatBar.setProgress((int) fatSummary);
+            carbohydratesBar.setProgress((int) carbohydratesSummary);
+
+            if (proteinSummary > proteinLimit * 0.5 && proteinSummary < proteinLimit * 0.9){
+                proteingBar.getProgressDrawable().setColorFilter(
+                        Color.YELLOW, android.graphics.PorterDuff.Mode.SRC_IN);
+            }else if(proteinSummary > proteinLimit * 0.9){
+                proteingBar.getProgressDrawable().setColorFilter(
+                        Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
+            }else {
+                proteingBar.getProgressDrawable().setColorFilter(
+                        Color.rgb(93,63,211), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+
+            if (fatSummary > fatLimit * 0.5 && fatSummary < fatLimit * 0.9){
+                fatBar.getProgressDrawable().setColorFilter(
+                        Color.YELLOW, android.graphics.PorterDuff.Mode.SRC_IN);
+            }else if(fatSummary > fatLimit * 0.9){
+                fatBar.getProgressDrawable().setColorFilter(
+                        Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
+            }else {
+                fatBar.getProgressDrawable().setColorFilter(
+                        Color.rgb(93,63,211), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+
+            if (carbohydratesSummary> carbohydratesLimit * 0.5 && carbohydratesSummary < carbohydratesLimit * 0.9){
+                carbohydratesBar.getProgressDrawable().setColorFilter(
+                        Color.YELLOW, android.graphics.PorterDuff.Mode.SRC_IN);
+            }else if(carbohydratesSummary > carbohydratesLimit * 0.9){
+                carbohydratesBar.getProgressDrawable().setColorFilter(
+                        Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
+            }else {
+                carbohydratesBar.getProgressDrawable().setColorFilter(
+                        Color.rgb(93,63,211), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+
+            return null;
+        }
+    }
 }
 

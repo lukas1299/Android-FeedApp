@@ -1,5 +1,11 @@
 package com.example.feedapp;
 
+import static com.example.feedapp.Login.IPaddres;
+import static com.example.feedapp.Login.TAG_PASSWORD;
+import static com.example.feedapp.Login.TAG_RESPONSEARRAY;
+import static com.example.feedapp.Login.TAG_SUCCESS;
+import static com.example.feedapp.Login.TAG_USERNAME;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -34,11 +40,7 @@ public class SignUp extends AppCompatActivity {
     Button buttonRegister;
 
     JSONParser jsonParser = new JSONParser();
-    private static final String registerURL = "http://192.168.100.9/android/signup.php";
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_RESPONSEARRAY = "responseArray";
-    private static final String TAG_USERNAME = "username";
-    private static final String TAG_PASSWORD = "password";
+    private static final String registerURL = IPaddres + "signup.php";
     private static final String TAG_EMAIL = "email";
 
     int showMessage;
@@ -79,7 +81,7 @@ public class SignUp extends AppCompatActivity {
             String username = editTextUserName.getText().toString();
             String password = editTextPassword.getText().toString();
             String email = editTextEmail.getText().toString();
-//TODO: checkbox z privacy policy
+
             if(!username.equals("") && !password.equals("") && !email.equals("")) {
                 try {
                     List<NameValuePair> params = new ArrayList<NameValuePair>();
