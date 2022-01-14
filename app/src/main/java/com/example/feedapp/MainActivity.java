@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String getMealHistory = IPaddres + "getMealHistory.php";
     private static final String getUserDemand = IPaddres + "getUserDemand.php";
+    private static final String productDelete = IPaddres + "deleteProduct.php";
 
     private ImageView imageView1;
     private ImageView imageView2;
@@ -103,6 +105,11 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> productListSnack;
     private ArrayList<String> productListSupper;
 
+    private String productToDelete;
+    private String productQuantityToDelete;
+    private String productMealTypeToDelete;
+    private String productDateToDelete;
+
     private ListView listView;
     private LayoutInflater layoutInflater;
     private PopupWindow popupWindow;
@@ -122,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
     private JSONParser jsonParser = new JSONParser();
     private JSONArray responseArray;
+    List<NameValuePair> productParamsToDelete = new ArrayList<NameValuePair>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -400,7 +408,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        currentDay = new Date();//zbugowane wyswietlanie historii
+        currentDay = new Date();
         correctDate = new Date();
         properDayName(0, currentDay.getTime());
 
@@ -419,6 +427,16 @@ public class MainActivity extends AppCompatActivity {
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, productListBreakfast);
                     listView.setAdapter(adapter);
                     popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            productToDelete(productListBreakfast.get(position).toString(), currentDay, "Breakfast");
+                            productListBreakfast.remove(position);
+                            popupWindow.dismiss();
+                            popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+                        }
+                    });
                 }
             }
         });
@@ -438,6 +456,16 @@ public class MainActivity extends AppCompatActivity {
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, productListBreakfastII);
                     listView.setAdapter(adapter);
                     popupWindow.showAsDropDown(forwardToList2, Gravity.CENTER, 0, 0);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            productToDelete(productListBreakfastII.get(position).toString(), currentDay, "BreakfastII");
+                            productListBreakfastII.remove(position);
+                            popupWindow.dismiss();
+                            popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+                        }
+                    });
                 }
             }
         });
@@ -457,6 +485,16 @@ public class MainActivity extends AppCompatActivity {
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, productListLunch);
                     listView.setAdapter(adapter);
                     popupWindow.showAsDropDown(forwardToList3, Gravity.CENTER, 0, 0);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            productToDelete(productListLunch.get(position).toString(), currentDay, "Lunch");
+                            productListLunch.remove(position);
+                            popupWindow.dismiss();
+                            popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+                        }
+                    });
                 }
             }
         });
@@ -476,6 +514,16 @@ public class MainActivity extends AppCompatActivity {
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, productListDinner);
                     listView.setAdapter(adapter);
                     popupWindow.showAsDropDown(forwardToList4, Gravity.CENTER, 0, 0);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            productToDelete(productListDinner.get(position).toString(), currentDay, "Dinner");
+                            productListDinner.remove(position);
+                            popupWindow.dismiss();
+                            popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+                        }
+                    });
                 }
             }
         });
@@ -495,6 +543,16 @@ public class MainActivity extends AppCompatActivity {
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, productListSnack);
                     listView.setAdapter(adapter);
                     popupWindow.showAsDropDown(forwardToList5, Gravity.CENTER, 0, 0);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            productToDelete(productListSnack.get(position).toString(), currentDay, "Snack");
+                            productListSnack.remove(position);
+                            popupWindow.dismiss();
+                            popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+                        }
+                    });
                 }
             }
         });
@@ -514,6 +572,16 @@ public class MainActivity extends AppCompatActivity {
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, productListSupper);
                     listView.setAdapter(adapter);
                     popupWindow.showAsDropDown(forwardToList6, Gravity.CENTER, 0, 0);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            productToDelete(productListSupper.get(position).toString(), currentDay, "Supper");
+                            productListSupper.remove(position);
+                            popupWindow.dismiss();
+                            popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+                        }
+                    });
                 }
             }
         });
@@ -525,7 +593,7 @@ public class MainActivity extends AppCompatActivity {
         properDayName(0,currentDay.getTime());
     }
 
-    public void properDayName(int daysQuantity, long time){
+    private void properDayName(int daysQuantity, long time){
 
         SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd");
@@ -595,6 +663,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void productToDelete(String product, Date date, String fromMeal){
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String[] split = product.split(", ");
+        productToDelete = split[0];
+        String[] splitGrams = split[1].split("g");
+        productQuantityToDelete = splitGrams[0];
+        productMealTypeToDelete = fromMeal;
+        productDateToDelete = dateFormat.format(date);
+
+        productParamsToDelete.add(new BasicNameValuePair("productName", productToDelete));
+        productParamsToDelete.add(new BasicNameValuePair("productQuantity", productQuantityToDelete));
+        productParamsToDelete.add(new BasicNameValuePair("mealDate", productDateToDelete));
+        productParamsToDelete.add(new BasicNameValuePair("mealType", productMealTypeToDelete));
+        productParamsToDelete.add(new BasicNameValuePair("id_user", String.valueOf(loggedInUser)));
+        new deleteProductFromHistory().execute();
+
+    }
+
     class loadHistory extends AsyncTask<String,String,String> {
 
         @Override
@@ -609,7 +696,7 @@ public class MainActivity extends AppCompatActivity {
                 params.add(new BasicNameValuePair("date", dateToSend));
                 JSONObject json = jsonParser.makeHttpRequest(getMealHistory, "POST", params);
 
-                Log.d("main", json.toString());
+                //Log.d("main", json.toString());
 
                 success = json.getInt(TAG_SUCCESS);
 
@@ -647,22 +734,18 @@ public class MainActivity extends AppCompatActivity {
                                 mealsKcal[c][3] = mealsKcal[c][3] + Double.parseDouble(quantity) / 100 * Double.parseDouble(carbohydrates);//-||- carbo
                                 //break;
 
-                                HashMap<String, String> map = new HashMap<>();
-                                map.put("name", name);
-                                map.put("quantity", quantity);
-
                                 if (temp == 1){
-                                    productListBreakfast.add(name + " " + quantity + "g");
+                                    productListBreakfast.add(name + ", " + quantity + "g");
                                 }else if (temp == 2){
-                                    productListBreakfastII.add(name + " " + quantity + "g");
+                                    productListBreakfastII.add(name + ", " + quantity + "g");
                                 }else if (temp == 3){
-                                    productListLunch.add(name + " " + quantity + "g");
+                                    productListLunch.add(name + ", " + quantity + "g");
                                 }else if (temp == 4){
-                                    productListDinner.add(name + " " + quantity + "g");
+                                    productListDinner.add(name + ", " + quantity + "g");
                                 }else if (temp == 5){
-                                    productListSnack.add(name + " " + quantity + "g");
+                                    productListSnack.add(name + ", " + quantity + "g");
                                 }else if (temp == 6){
-                                    productListSupper.add(name + " " + quantity + "g");
+                                    productListSupper.add(name + ", " + quantity + "g");
                                 }
                             }
                         }
@@ -693,7 +776,7 @@ public class MainActivity extends AppCompatActivity {
                 params.add(new BasicNameValuePair("id_user", String.valueOf(loggedInUser)));
                 JSONObject json = jsonParser.makeHttpRequest(getUserDemand, "POST", params);
 
-                Log.d("main", json.toString());
+                //Log.d("main", json.toString());
 
                 success = json.getInt(TAG_SUCCESS);
 
@@ -771,6 +854,18 @@ public class MainActivity extends AppCompatActivity {
                         Color.rgb(93,63,211), android.graphics.PorterDuff.Mode.SRC_IN);
             }
 
+            return null;
+        }
+    }
+
+    class deleteProductFromHistory extends AsyncTask<String, String, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            JSONObject json = jsonParser.makeHttpRequest(productDelete, "POST", productParamsToDelete);
+
+            Log.d("main", json.toString());
             return null;
         }
     }
