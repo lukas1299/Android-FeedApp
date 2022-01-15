@@ -113,7 +113,12 @@ public class Login extends AppCompatActivity {
 
                             int id = responseObject.getInt("loggedIn");
                             String userName = responseObject.getString("userName");
-                            String info = "Age: " + responseObject.getString("age") + " Height: " + responseObject.getString("height") + " Weight: " + responseObject.getString("weight");
+                            String info;
+                            if (!responseObject.getString("age").equals("1")) {
+                                info = "Age: " + responseObject.getString("age") + " Height: " + responseObject.getString("height") + " Weight: " + responseObject.getString("weight");
+                            }else{
+                                info = "Provide informations!";
+                            }
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
                             overridePendingTransition(0,0);
                             editor.putString("userName",userName);

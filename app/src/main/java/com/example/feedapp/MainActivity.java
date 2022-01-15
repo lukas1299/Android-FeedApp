@@ -659,6 +659,7 @@ public class MainActivity extends AppCompatActivity {
                 imageView4.setVisibility(View.VISIBLE);
                 imageView5.setVisibility(View.VISIBLE);
                 imageView6.setVisibility(View.VISIBLE);
+                arrowRight.setVisibility(View.INVISIBLE);
             }else {
                 imageView1.setVisibility(View.INVISIBLE);
                 imageView2.setVisibility(View.INVISIBLE);
@@ -666,6 +667,7 @@ public class MainActivity extends AppCompatActivity {
                 imageView4.setVisibility(View.INVISIBLE);
                 imageView5.setVisibility(View.INVISIBLE);
                 imageView6.setVisibility(View.INVISIBLE);
+                arrowRight.setVisibility(View.VISIBLE);
             }
 
             new loadHistory().execute();
@@ -689,6 +691,7 @@ public class MainActivity extends AppCompatActivity {
                 imageView4.setVisibility(View.VISIBLE);
                 imageView5.setVisibility(View.VISIBLE);
                 imageView6.setVisibility(View.VISIBLE);
+                arrowRight.setVisibility(View.INVISIBLE);
             }else {
                 imageView1.setVisibility(View.INVISIBLE);
                 imageView2.setVisibility(View.INVISIBLE);
@@ -696,6 +699,7 @@ public class MainActivity extends AppCompatActivity {
                 imageView4.setVisibility(View.INVISIBLE);
                 imageView5.setVisibility(View.INVISIBLE);
                 imageView6.setVisibility(View.INVISIBLE);
+                arrowRight.setVisibility(View.VISIBLE);
             }
 
             new loadHistory().execute();

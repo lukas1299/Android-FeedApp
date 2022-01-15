@@ -111,6 +111,7 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 editor.putInt("loggedIN",0);
+                editor.putInt("notificationPushed",0);
                 editor.commit();
                 startActivity(new Intent(getApplicationContext(), Login.class));
                 overridePendingTransition(0,0);
@@ -185,6 +186,7 @@ public class AccountActivity extends AppCompatActivity {
         userInfo.setText(info);
 
         createNotificationChannel();
+
         try {
             achivementHandling();
         } catch (ExecutionException e) {
@@ -192,6 +194,7 @@ public class AccountActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         editor.putInt("notificationPushed",1);
         editor.commit();
     }
@@ -286,19 +289,26 @@ public class AccountActivity extends AppCompatActivity {
             String goalSpinnerString = goalSpinner.getSelectedItem().toString();
 
             if(!ageString.equals("") && !weightString.equals("") && !heightString.equals("")){
-                System.out.println(ageString + " " + weightString + " " + heightString + " " + genderSpinnerString + " " + activitySpinnerString + " " + goalSpinnerString + " " + loggedIn);
-                List<NameValuePair> params = new ArrayList<NameValuePair>();
-                params.add(new BasicNameValuePair("id_user", String.valueOf(loggedIn)));
-                params.add(new BasicNameValuePair("age", ageString));
-                params.add(new BasicNameValuePair("height", heightString));
-                params.add(new BasicNameValuePair("weight", weightString));
-                params.add(new BasicNameValuePair("activity", activitySpinnerString));
-                params.add(new BasicNameValuePair("goal", goalSpinnerString));
-                params.add(new BasicNameValuePair("sex", genderSpinnerString));
+                if (Integer.parseInt(ageString) < 8 || Integer.parseInt(weightString) < 30 || Integer.parseInt(heightString) < 100){
+                    showMessage = 2;
+                }else {
+                    System.out.println(ageString + " " + weightString + " " + heightString + " " + genderSpinnerString + " " + activitySpinnerString + " " + goalSpinnerString + " " + loggedIn);
+                    List<NameValuePair> params = new ArrayList<NameValuePair>();
+                    params.add(new BasicNameValuePair("id_user", String.valueOf(loggedIn)));
+                    params.add(new BasicNameValuePair("age", ageString));
+                    params.add(new BasicNameValuePair("height", heightString));
+                    params.add(new BasicNameValuePair("weight", weightString));
+                    params.add(new BasicNameValuePair("activity", activitySpinnerString));
+                    params.add(new BasicNameValuePair("goal", goalSpinnerString));
+                    params.add(new BasicNameValuePair("sex", genderSpinnerString));
 
-                JSONObject json = jsonParser.makeHttpRequest(setUserDemandURL, "POST", params);
+                    editor.putString("info","Age: " + ageString + " Height: " + heightString + " Weight: " + weightString);
+                    editor.commit();
+                    userInfo.setText("Age: " + ageString + " Height: " + heightString + " Weight: " + weightString);
+                    JSONObject json = jsonParser.makeHttpRequest(setUserDemandURL, "POST", params);
 
-                showMessage = 0;
+                    showMessage = 0;
+                }
             }else{
                 showMessage = 1;
             }
@@ -311,6 +321,9 @@ public class AccountActivity extends AppCompatActivity {
             Context context = getApplicationContext();
             if(showMessage == 1) {
                 Toast toastIncorrectLoginOrPassword = Toast.makeText(getApplicationContext(), "Fill in all fields", Toast.LENGTH_SHORT);
+                toastIncorrectLoginOrPassword.show();
+            }else if (showMessage == 2){
+                Toast toastIncorrectLoginOrPassword = Toast.makeText(getApplicationContext(), "Provide real informations", Toast.LENGTH_SHORT);
                 toastIncorrectLoginOrPassword.show();
             }
         }
@@ -339,6 +352,10 @@ public class AccountActivity extends AppCompatActivity {
                     towDaysStreakRespond = jsonTemp.getString("twoDays");
                     threeDaysStreakRespond = jsonTemp.getString("threeDays");
 
+                }else{
+                    oneDayStreakRespond = String.valueOf(0);
+                    towDaysStreakRespond = String.valueOf(0);
+                    threeDaysStreakRespond = String.valueOf(0);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

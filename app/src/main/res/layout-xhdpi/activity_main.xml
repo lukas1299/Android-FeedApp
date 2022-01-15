@@ -152,7 +152,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/todayBttn"
                     android:layout_width="129dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
