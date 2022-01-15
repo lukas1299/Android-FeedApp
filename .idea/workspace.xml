@@ -16,30 +16,12 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec8ace06-09e6-48ec-ad82-987f5618e9c5" name="Default Changelist" comment="Achivements and notifications update">
-      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-hdpi/activity_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-xhdpi/activity_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/activity_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-xxhdpi/progressbar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-xxxhdpi/activity_account.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-xxxhdpi/activity_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-xxxhdpi/activity_product_list.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-xxxhdpi/activity_recipes.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-xxxhdpi/item_list.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-xxxhdpi/progressbar.xml" afterDir="false" />
+    <list default="true" id="ec8ace06-09e6-48ec-ad82-987f5618e9c5" name="Default Changelist" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/AccountActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/AccountActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/ProductList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/ProductList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/RecipesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/RecipesActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/feedapp/SignUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_account.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_recipes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_recipes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/product_details_popup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/product_details_popup.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,6 +104,7 @@
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -294,7 +277,21 @@
       <option name="project" value="LOCAL" />
       <updated>1641647257086</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="update">
+      <created>1642110181396</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1642110181396</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Deleting product form history">
+      <created>1642189677053</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1642189677053</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -320,6 +317,8 @@
     <MESSAGE value="body information changes now posible" />
     <MESSAGE value="RecipesActivity" />
     <MESSAGE value="Achivements and notifications update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Achivements and notifications update" />
+    <MESSAGE value="update" />
+    <MESSAGE value="Deleting product form history" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deleting product form history" />
   </component>
 </project>

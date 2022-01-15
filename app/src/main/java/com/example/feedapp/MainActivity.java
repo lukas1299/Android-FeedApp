@@ -433,8 +433,15 @@ public class MainActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             productToDelete(productListBreakfast.get(position).toString(), currentDay, "Breakfast");
                             productListBreakfast.remove(position);
-                            popupWindow.dismiss();
-                            popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+
+                    popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            new loadHistory().execute();
+                            new setStats().execute();
                         }
                     });
                 }
@@ -462,8 +469,15 @@ public class MainActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             productToDelete(productListBreakfastII.get(position).toString(), currentDay, "BreakfastII");
                             productListBreakfastII.remove(position);
-                            popupWindow.dismiss();
-                            popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+
+                    popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            new loadHistory().execute();
+                            new setStats().execute();
                         }
                     });
                 }
@@ -491,8 +505,15 @@ public class MainActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             productToDelete(productListLunch.get(position).toString(), currentDay, "Lunch");
                             productListLunch.remove(position);
-                            popupWindow.dismiss();
-                            popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+
+                    popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            new loadHistory().execute();
+                            new setStats().execute();
                         }
                     });
                 }
@@ -520,8 +541,15 @@ public class MainActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             productToDelete(productListDinner.get(position).toString(), currentDay, "Dinner");
                             productListDinner.remove(position);
-                            popupWindow.dismiss();
-                            popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+
+                    popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            new loadHistory().execute();
+                            new setStats().execute();
                         }
                     });
                 }
@@ -549,8 +577,15 @@ public class MainActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             productToDelete(productListSnack.get(position).toString(), currentDay, "Snack");
                             productListSnack.remove(position);
-                            popupWindow.dismiss();
-                            popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+
+                    popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            new loadHistory().execute();
+                            new setStats().execute();
                         }
                     });
                 }
@@ -578,8 +613,15 @@ public class MainActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             productToDelete(productListSupper.get(position).toString(), currentDay, "Supper");
                             productListSupper.remove(position);
-                            popupWindow.dismiss();
-                            popupWindow.showAsDropDown(forwardToList1, Gravity.CENTER, 0, 0);
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+
+                    popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                        @Override
+                        public void onDismiss() {
+                            new loadHistory().execute();
+                            new setStats().execute();
                         }
                     });
                 }

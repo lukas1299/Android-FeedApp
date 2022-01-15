@@ -298,7 +298,6 @@ public class AccountActivity extends AppCompatActivity {
 
                 JSONObject json = jsonParser.makeHttpRequest(setUserDemandURL, "POST", params);
 
-                Log.d("main", json.toString());
                 showMessage = 0;
             }else{
                 showMessage = 1;

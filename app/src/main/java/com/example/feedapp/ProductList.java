@@ -50,7 +50,7 @@ public class ProductList extends ListActivity {
     boolean emptyProductName;
 
     private ArrayList<HashMap<String,String>> productList;
-    //TODO:usuwanie z historii,
+    //TODO:statystyki nowo zarejestrowanego
     private static final String getProductListURL = IPaddres + "productSearch.php";
     private static final String setMealHistory = IPaddres + "mealHistory.php";
     private static final String TAG_ID= "id";
