@@ -811,7 +811,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
-    //TODO:dodawanie produktu
+
     class loadDemand extends AsyncTask<String, String, String>{
 
         @Override

@@ -70,6 +70,7 @@ public class AccountActivity extends AppCompatActivity {
     private TextView twoDayText;
     private TextView threeDayText;
     private TextView userInfo;
+    private TextView userInfo2;
 
     private TextView userName;
 
@@ -82,6 +83,7 @@ public class AccountActivity extends AppCompatActivity {
     private int loggedIn;
     private String userNameString;
     private String info;
+    private String info2;
     private String oneDayStreakRespond;
     private String towDaysStreakRespond;
     private String threeDaysStreakRespond;
@@ -98,6 +100,7 @@ public class AccountActivity extends AppCompatActivity {
         loggedIn = sharedPreferences.getInt("loggedIN",0);
         userNameString = sharedPreferences.getString("userName","Mona lisa");
         info = sharedPreferences.getString("info","");
+        info2 = sharedPreferences.getString("info2","");
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ffffff")));
         actionBar.setTitle(Html.fromHtml("<font color='#00000'>Account</font>"));
@@ -184,6 +187,10 @@ public class AccountActivity extends AppCompatActivity {
 
         userInfo = findViewById(R.id.userInfo);
         userInfo.setText(info);
+        userInfo2 = findViewById(R.id.userInfo2);
+        userInfo2.setText(info2);
+        System.out.println(info+ " dfghdfghdfgsdfg");
+        System.out.println(info2 + " dfghdfghdfgsdfg2");
 
         createNotificationChannel();
 
@@ -302,11 +309,21 @@ public class AccountActivity extends AppCompatActivity {
                     params.add(new BasicNameValuePair("goal", goalSpinnerString));
                     params.add(new BasicNameValuePair("sex", genderSpinnerString));
 
-                    editor.putString("info","Age: " + ageString + " Height: " + heightString + " Weight: " + weightString);
+                    editor.putString("info","Age: " + ageString + " Height: " + heightString + "cm Weight: " + weightString + "kg Goal: " + goalSpinnerString);
                     editor.commit();
-                    userInfo.setText("Age: " + ageString + " Height: " + heightString + " Weight: " + weightString);
+
                     JSONObject json = jsonParser.makeHttpRequest(setUserDemandURL, "POST", params);
 
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            userInfo.setText("Age: " + ageString + " Height: " + heightString + "cm Weight: " + weightString + "kg Goal: " + goalSpinnerString);
+                            userInfo2.setText("Goal: " + goalSpinnerString);
+
+                        }
+                    });
                     showMessage = 0;
                 }
             }else{
@@ -324,6 +341,9 @@ public class AccountActivity extends AppCompatActivity {
                 toastIncorrectLoginOrPassword.show();
             }else if (showMessage == 2){
                 Toast toastIncorrectLoginOrPassword = Toast.makeText(getApplicationContext(), "Provide real informations", Toast.LENGTH_SHORT);
+                toastIncorrectLoginOrPassword.show();
+            }else if ( showMessage == 0){
+                Toast toastIncorrectLoginOrPassword = Toast.makeText(getApplicationContext(), "Saving...", Toast.LENGTH_SHORT);
                 toastIncorrectLoginOrPassword.show();
             }
         }

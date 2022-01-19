@@ -35,7 +35,7 @@ public class Login extends AppCompatActivity {
     TextView test;
 
     JSONParser jsonParser = new JSONParser();
-    public static final String IPaddres = "http://192.168.0.101/android/";
+    public static final String IPaddres = "http://192.168.100.9/android/";
     private static final String loginURL = IPaddres + "login.php";
     public static final String TAG_SUCCESS = "success";
     public static final String TAG_RESPONSEARRAY = "responseArray";
@@ -114,15 +114,19 @@ public class Login extends AppCompatActivity {
                             int id = responseObject.getInt("loggedIn");
                             String userName = responseObject.getString("userName");
                             String info;
+                            String info2;
                             if (!responseObject.getString("age").equals("1")) {
-                                info = "Age: " + responseObject.getString("age") + " Height: " + responseObject.getString("height") + " Weight: " + responseObject.getString("weight");
+                                info = "Age: " + responseObject.getString("age") + " Height: " + responseObject.getString("height") + "cm Weight: " + responseObject.getString("weight") + "kg ";
+                                info2 = "Goal: " + responseObject.getString("goal");
                             }else{
                                 info = "Provide informations!";
+                                info2 = "";
                             }
                             startActivity(new Intent(getApplicationContext(),MainActivity.class));
                             overridePendingTransition(0,0);
                             editor.putString("userName",userName);
                             editor.putString("info",info);
+                            editor.putString("info2",info2);
                             editor.putInt("loggedIN",id);
                             editor.commit();
 

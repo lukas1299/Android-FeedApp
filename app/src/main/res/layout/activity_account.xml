@@ -96,11 +96,45 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginTop="150dp"
-                    android:layout_marginBottom="29dp"
+                    android:layout_marginTop="130dp"
+                    android:layout_marginBottom="49dp"
                     android:gravity="center"
                     android:text="Mona Lisa"
                     android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/userInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="150dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/userInfo2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="153dp"
+                    android:layout_marginEnd="-3dp"
+                    android:layout_marginBottom="25dp"
+                    android:gravity="center"
+                    android:text="xd"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
 
                 <ImageView
                     android:id="@+id/imageView2"

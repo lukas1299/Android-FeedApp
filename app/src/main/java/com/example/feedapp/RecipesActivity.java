@@ -23,6 +23,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -250,6 +251,8 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new addToMeal().execute();
+                Toast toastIncorrectLoginOrPassword = Toast.makeText(getApplicationContext(), "Added to history", Toast.LENGTH_SHORT);
+                toastIncorrectLoginOrPassword.show();
             }
         });
     }

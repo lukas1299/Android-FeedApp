@@ -263,9 +263,13 @@ public class ProductList extends ListActivity {
                     historyParams.add(new BasicNameValuePair("date",currentDate));
                     historyParams.add(new BasicNameValuePair("mealtype",mealTime));
                     new sendHistory().execute();
+                    Toast toastIncorrectLoginOrPassword = Toast.makeText(getApplicationContext(), "Added to history", Toast.LENGTH_SHORT);
+                    toastIncorrectLoginOrPassword.show();
                 }
             }
         });
+
+
     }
 
     class sendHistory extends AsyncTask<String, String, String>{
